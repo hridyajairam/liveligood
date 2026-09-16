@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Liveligood — India's Social Impact Marketplace</title>
+<meta name="description" content="A digital commons for social enterprises in India. Verified products, real impact, direct purchase."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',system-ui,sans-serif;background:#fff;color:#111827;min-height:100vh;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit;font-size:inherit}
+input,textarea,select{font-family:inherit}
+img{max-width:100%;display:block}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#059669;border-radius:3px}
+:root{
+  --green:#059669;--green-dark:#047857;--green-dim:rgba(5,150,105,.08);
+  --teal:#0d9488;--gold:#d97706;--blue:#2563eb;--purple:#7c3aed;
+  --text1:#111827;--text2:#4b5563;--text3:#9ca3af;
+  --bg:#fff;--bg2:#f8faf9;--bg3:#f1f4f2;
+  --border:#e5e7eb;--border2:#d1d5db;
+  --shadow:0 1px 8px rgba(0,0,0,.06);--shadow2:0 6px 28px rgba(0,0,0,.10);
+  --r:10px;--r2:16px;--r3:24px;--tr:.2s ease;
+}
+.gradient-text{background:linear-gradient(135deg,#059669,#0d9488);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* Layout */
+.container{max-width:1240px;margin:0 auto;padding:0 24px}
+.section{padding:72px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1024px){.grid-3{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-3,.grid-4{grid-template-columns:1fr}.section{padding:48px 0}}
+.page{display:none}.page.active{display:block}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:var(--r);font-weight:600;transition:all var(--tr);cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--green);color:#fff;padding:11px 22px;font-size:.9rem;border:none}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(5,150,105,.3)}
+.btn-outline{border:1.5px solid var(--border2);color:var(--text1);background:transparent;padding:10px 22px;font-size:.9rem}
+.btn-outline:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+.btn-ghost{color:var(--green);padding:8px 14px;font-size:.85rem;border-radius:var(--r)}
+.btn-ghost:hover{background:var(--green-dim)}
+.btn-lg{padding:13px 28px;font-size:.97rem;border-radius:var(--r2)}
+.btn-sm{padding:6px 14px;font-size:.78rem;border-radius:8px}
+/* Navbar */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:500;padding:14px 0;transition:all var(--tr)}
+#navbar.scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{display:flex;align-items:center;gap:9px;font-size:1.22rem;font-weight:800;letter-spacing:-.03em;cursor:pointer}
+.logo-box{width:32px;height:32px;background:linear-gradient(135deg,#059669,#0d9488);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:1px;list-style:none}
+.nav-links a{padding:7px 14px;border-radius:var(--r);font-size:.86rem;font-weight:500;color:var(--text2);transition:all var(--tr);cursor:pointer;display:block}
+.nav-links a:hover,.nav-links a.active{background:var(--green-dim);color:var(--green)}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text1);border-radius:2px}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}}
+.mob-menu{display:none;position:fixed;inset:0;background:#fff;z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:1.3rem;font-weight:700;color:var(--text1);padding:10px 24px;border-radius:var(--r);cursor:pointer}
+.mob-close{position:absolute;top:20px;right:20px;width:38px;height:38px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer}
+/* Section headers */
+.sec-head{text-align:center;margin-bottom:40px}
+.sec-tag{display:inline-flex;align-items:center;gap:6px;background:var(--green-dim);border:1px solid rgba(5,150,105,.18);color:var(--green);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px}
+.sec-head h2{font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.sec-head p{font-size:.93rem;color:var(--text2);max-width:480px;margin:0 auto;line-height:1.65}
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;background:linear-gradient(180deg,#f0fdf8 0%,#fff 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(5,150,105,.06) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(5,150,105,.25);color:var(--green);padding:5px 14px;border-radius:100px;font-size:.76rem;font-weight:700;margin-bottom:20px;box-shadow:var(--shadow)}
+.hero-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:18px}
+.hero-sub{font-size:1.05rem;color:var(--text2);max-width:520px;margin:0 auto 32px;line-height:1.7}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.hero-stats{display:flex;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:#fff;box-shadow:var(--shadow);flex-wrap:wrap}
+.h-stat{padding:18px 26px;border-right:1px solid var(--border);text-align:center;flex:1;min-width:120px}
+.h-stat:last-child{border-right:none}
+.h-stat-num{font-size:1.4rem;font-weight:900;color:var(--green);line-height:1;margin-bottom:3px}
+.h-stat-label{font-size:.72rem;color:var(--text3);font-weight:500}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero>*{animation:fadeUp .6s ease both}
+.hero-badge{animation-delay:0s}.hero h1{animation-delay:.08s}.hero-sub{animation-delay:.15s}.hero-ctas{animation-delay:.22s}.hero-stats{animation-delay:.3s}
+/* Product cards */
+.prod-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;transition:all var(--tr);cursor:pointer}
+.prod-card:hover{border-color:rgba(5,150,105,.35);transform:translateY(-3px);box-shadow:var(--shadow2)}
+.prod-img-wrap{aspect-ratio:16/9;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative}
+.prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.04)}
+.prod-emoji{font-size:3.5rem;user-select:none}
+.prod-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.prod-cat{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 9px;border-radius:100px;margin-bottom:7px;display:inline-block}
+.prod-name{font-size:.95rem;font-weight:700;margin-bottom:4px;color:var(--text1);line-height:1.3}
+.prod-ent{display:inline-flex;align-items:center;gap:4px;font-size:.76rem;font-weight:600;color:var(--green);margin-bottom:11px;transition:opacity var(--tr)}
+.prod-ent:hover{opacity:.7}
+.vtag{background:var(--green);color:#fff;font-size:.55rem;padding:1px 5px;border-radius:100px;font-weight:800}
+.sroi-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.sc{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:100px;font-size:.68rem;font-weight:600;border:1px solid transparent}
+.sc-water{background:rgba(37,99,235,.07);color:#2563eb;border-color:rgba(37,99,235,.15)}
+.sc-live{background:rgba(217,119,6,.07);color:#d97706;border-color:rgba(217,119,6,.15)}
+.sc-carbon{background:rgba(5,150,105,.07);color:#059669;border-color:rgba(5,150,105,.15)}
+.sc-c{background:rgba(124,58,237,.07);color:#7c3aed;border-color:rgba(124,58,237,.15)}
+.prod-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:11px;border-top:1px solid var(--border)}
+.prod-price{font-size:.97rem;font-weight:800}
+.btn-buy{display:inline-flex;align-items:center;gap:4px;background:var(--green);color:#fff;font-size:.76rem;font-weight:700;padding:7px 13px;border-radius:8px;transition:all var(--tr);border:none;cursor:pointer;text-decoration:none;font-family:'Outfit',sans-serif;white-space:nowrap}
+.btn-buy:hover{background:var(--green-dark)}
+/* Enterprise cards */
+.ent-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all var(--tr);cursor:pointer}
+.ent-card:hover{border-color:rgba(5,150,105,.35);transform:translateY(-3px);box-shadow:var(--shadow2)}
+.ent-photo{height:90px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+.ent-photo img{width:100%;height:100%;object-fit:cover}
+.ent-logo-c{position:absolute;bottom:-16px;left:16px;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid #fff;box-shadow:var(--shadow)}
+.ent-body{padding:24px 14px 14px}
+.ent-name{font-size:.93rem;font-weight:700;margin-bottom:3px}
+.ent-tagline{font-size:.78rem;color:var(--text2);margin-bottom:5px;line-height:1.4}
+.ent-loc{font-size:.72rem;color:var(--text3);margin-bottom:10px}
+.ent-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:10px}
+.ent-m{background:var(--bg2);border-radius:8px;padding:7px;text-align:center}
+.ent-m-num{font-size:.85rem;font-weight:800;color:var(--green)}
+.ent-m-label{font-size:.57rem;color:var(--text3)}
+/* Counters */
+.counters-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.counters-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.counters-grid{grid-template-columns:repeat(2,1fr)}}
+.c-item{padding:28px 20px;text-align:center;border-right:1px solid var(--border)}
+.c-item:last-child{border-right:none}
+.c-icon{font-size:1.4rem;margin-bottom:7px}
+.c-num{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--green);line-height:1;margin-bottom:4px}
+.c-label{font-size:.76rem;color:var(--text2)}
+/* Leaderboard */
+.lb-list{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.lb-item{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:12px 16px;transition:all var(--tr);cursor:pointer}
+.lb-item:hover{border-color:rgba(5,150,105,.3);transform:translateX(3px)}
+.lb-rank{font-size:1rem;font-weight:900;color:var(--text3);width:24px;text-align:center;flex-shrink:0}
+.lb-logo-sm{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.lb-info{flex:1}
+.lb-name{font-size:.88rem;font-weight:700}
+.lb-sub{font-size:.7rem;color:var(--text3);margin-top:2px}
+.lb-score-num{font-size:1rem;font-weight:900;color:var(--green)}
+.lb-score-label{font-size:.6rem;color:var(--text3);text-align:right}
+/* SDG */
+.sdg-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sdg-pill{display:flex;align-items:center;gap:6px;padding:8px 13px;border-radius:var(--r);font-size:.76rem;font-weight:700;color:#fff;transition:all var(--tr)}
+.sdg-pill:hover{transform:translateY(-2px);filter:brightness(1.08)}
+/* Marketplace */
+.mkt-header{padding:96px 0 32px;background:linear-gradient(180deg,#f0fdf8 0%,#fff 100%);border-bottom:1px solid var(--border)}
+.mkt-header h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.mkt-header p{color:var(--text2);margin-bottom:20px;font-size:.93rem}
+.search-box{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--border2);border-radius:var(--r2);padding:10px 16px;max-width:440px;transition:border-color var(--tr)}
+.search-box:focus-within{border-color:var(--green)}
+.search-box input{flex:1;background:none;border:none;outline:none;color:var(--text1);font-size:.9rem;font-family:inherit}
+.search-box input::placeholder{color:var(--text3)}
+.filters-bar{background:#fff;border-bottom:1px solid var(--border);padding:13px 0;position:sticky;top:58px;z-index:100}
+.filters-inner{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.f-label{font-size:.72rem;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.f-sel{background:#fff;border:1.5px solid var(--border2);border-radius:var(--r);padding:8px 28px 8px 12px;font-size:.83rem;color:var(--text1);cursor:pointer;transition:border-color var(--tr);outline:none;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;min-width:145px}
+.f-sel:focus{border-color:var(--green)}
+.prods-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.prods-count{font-size:.85rem;color:var(--text2)}
+.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:1024px){.prods-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.prods-grid{grid-template-columns:1fr}}
+.no-results{grid-column:1/-1;text-align:center;padding:72px 0;color:var(--text3)}
+/* Product Detail Modal */
+.prod-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:800;opacity:0;pointer-events:none;transition:opacity .25s}
+.prod-overlay.open{opacity:1;pointer-events:all}
+.prod-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-44%);width:min(640px,96vw);max-height:92vh;background:#fff;border-radius:var(--r3);z-index:801;overflow-y:auto;opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.4,0,.2,1);box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.prod-modal.open{transform:translate(-50%,-50%);opacity:1;pointer-events:all}
+.pm-img{aspect-ratio:16/9;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;border-radius:var(--r3) var(--r3) 0 0;position:relative}
+.pm-img img{width:100%;height:100%;object-fit:cover}
+.pm-close{position:absolute;top:12px;right:12px;width:30px;height:30px;background:rgba(0,0,0,.35);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;z-index:2;border:none}
+.pm-close:hover{background:rgba(0,0,0,.6)}
+.pm-body{padding:22px 24px 28px}
+.pm-cat{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:9px}
+.pm-name{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;line-height:1.2}
+.pm-ent{display:inline-flex;align-items:center;gap:5px;font-size:.83rem;font-weight:600;color:var(--green);cursor:pointer;margin-bottom:14px}
+.pm-ent:hover{text-decoration:underline}
+.pm-desc{font-size:.88rem;color:var(--text2);line-height:1.7;margin-bottom:18px}
+.pm-sroi-head{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.pm-sroi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:16px}
+.pm-sroi-item{background:var(--bg2);border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:9px}
+.pm-sroi-icon{font-size:1.3rem}
+.pm-sroi-val{font-size:.82rem;font-weight:700;color:var(--text1)}
+.pm-sroi-desc{font-size:.7rem;color:var(--text3)}
+.pm-sdgs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px}
+.sdg-c{font-size:.62rem;font-weight:700;padding:3px 8px;border-radius:5px;color:#fff}
+.pm-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:16px;border-top:1px solid var(--border)}
+.pm-price{font-size:1.15rem;font-weight:900}
+/* Enterprise modal */
+.ent-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);z-index:900;opacity:0;pointer-events:none;transition:opacity .25s}
+.ent-overlay.open{opacity:1;pointer-events:all}
+.ent-modal{position:fixed;top:0;right:0;bottom:0;width:min(500px,100vw);background:#fff;border-left:1px solid var(--border);z-index:901;overflow-y:auto;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.ent-modal.open{transform:translateX(0)}
+.m-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;z-index:2}
+.m-header-label{font-size:.8rem;font-weight:600;color:var(--text3)}
+.m-close{width:30px;height:30px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer}
+.m-body{padding:20px}
+.m-ent-top{text-align:center;margin-bottom:20px}
+.m-logo-lg{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 10px}
+.m-ent-name{font-size:1.15rem;font-weight:800;margin-bottom:3px}
+.m-ent-tagline{font-size:.82rem;color:var(--text2);margin-bottom:9px;line-height:1.5}
+.m-badges{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.m-badge{font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:100px}
+.m-badge-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(5,150,105,.2)}
+.m-badge-gold{background:rgba(217,119,6,.08);color:#d97706;border:1px solid rgba(217,119,6,.2)}
+.m-sec{margin-bottom:20px}
+.m-sec-title{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.m-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.m-impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.m-impact-item{background:var(--bg2);border-radius:var(--r);padding:10px;text-align:center}
+.m-impact-icon{font-size:1rem;margin-bottom:3px}
+.m-impact-num{font-size:.9rem;font-weight:800;color:var(--green)}
+.m-impact-label{font-size:.58rem;color:var(--text3)}
+.m-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.m-info-item{background:var(--bg2);border-radius:var(--r);padding:9px 11px}
+.m-info-label{font-size:.6rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.m-info-val{font-size:.81rem;font-weight:600;color:var(--text1);line-height:1.3}
+.m-text{font-size:.84rem;color:var(--text2);line-height:1.65}
+.m-prod-item{display:flex;align-items:center;gap:9px;background:var(--bg2);border-radius:var(--r);padding:9px 11px;border:1px solid var(--border);margin-bottom:7px;cursor:pointer;transition:border-color var(--tr)}
+.m-prod-item:hover{border-color:rgba(5,150,105,.3)}
+/* Bulk page */
+.bulk-hero{padding:96px 0 52px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#faf5ff 0%,#fff 100%)}
+.bulk-hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;line-height:1.1}
+.bulk-hero p{color:var(--text2);line-height:1.7;font-size:.93rem;margin-bottom:22px}
+.calc-box{background:#fff;border:1.5px solid var(--border2);border-radius:var(--r3);padding:28px;box-shadow:var(--shadow2)}
+.calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+@media(max-width:500px){.calc-inputs{grid-template-columns:1fr}}
+.calc-label{font-size:.75rem;font-weight:600;color:var(--text2);margin-bottom:5px;display:block}
+.calc-input{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:.88rem;font-family:inherit;color:var(--text1);outline:none;transition:border-color var(--tr)}
+.calc-input:focus{border-color:var(--green)}
+select.calc-input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:26px}
+.calc-results{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.calc-result{background:var(--bg2);border-radius:var(--r2);padding:14px}
+.calc-result-icon{font-size:1.3rem;margin-bottom:5px}
+.calc-result-val{font-size:1.25rem;font-weight:900;color:var(--green);margin-bottom:2px;line-height:1}
+.calc-result-label{font-size:.72rem;color:var(--text2)}
+.calc-sroi{grid-column:1/-1;background:var(--green-dim);border:1px solid rgba(5,150,105,.2);border-radius:var(--r2);padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.why-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:20px;transition:all var(--tr)}
+.why-card:hover{border-color:rgba(5,150,105,.3);transform:translateY(-2px)}
+.why-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:11px}
+.why-card h3{font-size:.9rem;font-weight:700;margin-bottom:5px}
+.why-card p{font-size:.8rem;color:var(--text2);line-height:1.6}
+/* Inquiry form */
+.inquiry-box{background:#fff;border:1.5px solid var(--border2);border-radius:var(--r3);padding:26px}
+.form-group{margin-bottom:12px}
+.form-label{font-size:.76rem;font-weight:600;color:var(--text2);margin-bottom:5px;display:block}
+.form-input{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:.87rem;font-family:inherit;color:var(--text1);outline:none;transition:border-color var(--tr)}
+.form-input:focus{border-color:var(--green)}
+.form-input::placeholder{color:var(--text3)}
+textarea.form-input{resize:vertical;min-height:80px}
+select.form-input{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:28px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:480px){.form-grid-2{grid-template-columns:1fr}}
+.c-ico{width:30px;height:30px;background:var(--bg3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.82rem;border:1px solid var(--border);flex-shrink:0}
+/* About page */
+.about-hero{padding:110px 0 64px;text-align:center;background:linear-gradient(180deg,#f0fdf8 0%,#fff 100%);border-bottom:1px solid var(--border)}
+.about-hero h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:900;letter-spacing:-.03em;margin-bottom:16px;line-height:1.05}
+.about-hero p{max-width:540px;margin:0 auto;color:var(--text2);font-size:.95rem;line-height:1.72}
+.about-section{padding:60px 0;border-bottom:1px solid var(--border)}
+.about-2col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+@media(max-width:768px){.about-2col{grid-template-columns:1fr}}
+.about-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.about-h2{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:800;letter-spacing:-.02em;margin-bottom:14px;line-height:1.15}
+.about-p{font-size:.88rem;color:var(--text2);line-height:1.75;margin-bottom:12px}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:580px){.vm-grid{grid-template-columns:1fr}}
+.vm-card{border-radius:var(--r2);padding:22px}
+.vm-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+.vm-text{font-size:.88rem;line-height:1.7}
+.verif-steps{display:flex;flex-direction:column;gap:14px}
+.verif-step{display:flex;gap:13px;align-items:flex-start}
+.verif-num{width:28px;height:28px;border-radius:8px;background:var(--green-dim);border:1.5px solid rgba(5,150,105,.2);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:var(--green);flex-shrink:0;margin-top:2px}
+.verif-title{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.verif-desc{font-size:.8rem;color:var(--text2);line-height:1.6}
+.join-box{background:linear-gradient(135deg,var(--green-dim),rgba(13,148,136,.06));border:1.5px solid rgba(5,150,105,.18);border-radius:var(--r3);padding:40px;text-align:center;max-width:600px;margin:0 auto}
+.req-item{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;color:var(--text2);margin-bottom:7px;text-align:left}
+.req-check{color:var(--green);font-weight:700;flex-shrink:0}
+.sroi-calc-ex{background:var(--bg2);border-radius:var(--r2);padding:18px}
+.sroi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:var(--r);font-size:.82rem}
+.sroi-row:nth-child(odd){background:#fff}
+.sroi-total{background:var(--green-dim)!important;border:1px solid rgba(5,150,105,.2)}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:580px){.val-grid{grid-template-columns:1fr}}
+.val-card{background:var(--bg2);border-radius:var(--r2);padding:18px}
+.val-icon{font-size:1.5rem;margin-bottom:7px}
+.val-title{font-size:.88rem;font-weight:700;margin-bottom:4px}
+.val-desc{font-size:.79rem;color:var(--text2);line-height:1.6}
+/* CTA banner */
+.cta-banner{background:linear-gradient(135deg,#f0fdf8,#eff6ff);border:1px solid rgba(5,150,105,.18);border-radius:var(--r3);padding:48px 36px;text-align:center}
+.cta-banner h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.cta-banner p{color:var(--text2);max-width:420px;margin:0 auto 22px;font-size:.93rem;line-height:1.65}
+/* Footer */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:34px 0 18px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:24px}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+.footer-logo{display:flex;align-items:center;gap:8px;font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.footer-desc{font-size:.8rem;color:var(--text2);line-height:1.6;margin-bottom:11px}
+.soc-row{display:flex;gap:6px}
+.soc-btn{width:28px;height:28px;background:#fff;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.78rem;cursor:pointer;color:var(--text2);transition:all var(--tr)}
+.soc-btn:hover{border-color:var(--green);color:var(--green)}
+.footer-col h4{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.footer-links a{display:block;font-size:.81rem;color:var(--text2);margin-bottom:5px;cursor:pointer;transition:color var(--tr)}
+.footer-links a:hover{color:var(--green)}
+.footer-bottom{padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-copy{font-size:.75rem;color:var(--text3)}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:#fff;border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--r2);padding:11px 15px;display:flex;align-items:center;gap:9px;box-shadow:var(--shadow2);z-index:9000;transform:translateY(80px);opacity:0;transition:all .28s ease;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-text{font-size:.83rem;color:var(--text1);font-weight:500}
+/* Anim */
+.anim-in{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.anim-in.visible{opacity:1;transform:translateY(0)}
+/* SDG colors */
+.sdg-1{background:#e5243b}.sdg-2{background:#dda63a}.sdg-3{background:#4c9f38}.sdg-4{background:#c5192d}.sdg-5{background:#ff3a21}.sdg-6{background:#26bde2}.sdg-7{background:#fcc30b;color:#000!important}.sdg-8{background:#a21942}.sdg-9{background:#fd6925}.sdg-10{background:#dd1367}.sdg-11{background:#fd9d24;color:#000!important}.sdg-12{background:#bf8b2e}.sdg-13{background:#3f7e44}.sdg-14{background:#0a97d9}.sdg-15{background:#56c02b;color:#000!important}.sdg-16{background:#00689d}.sdg-17{background:#19486a}
+/* Step cards */
+.step-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:24px;text-align:center;transition:all var(--tr)}
+.step-card:hover{border-color:rgba(5,150,105,.3);transform:translateY(-2px)}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}.about-2col,.bulk-hero .inner-2col{grid-template-columns:1fr}}
+.inner-2col{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+@media(max-width:880px){.inner-2col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container"><div class="nav-inner">
+    <div class="nav-logo" onclick="goTo('home')">
+      <div class="logo-box">🌱</div>Liveli<span style="color:var(--green)">good</span>
+    </div>
+    <ul class="nav-links">
+      <li><a id="nl-home" class="active" onclick="goTo('home')">Home</a></li>
+      <li><a id="nl-marketplace" onclick="goTo('marketplace')">Marketplace</a></li>
+      <li><a id="nl-bulk" onclick="goTo('bulk')">Bulk Orders</a></li>
+      <li><a id="nl-about" onclick="goTo('about')">About</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="btn btn-primary btn-sm" onclick="goTo('about')">Join as Enterprise</button>
+      <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </div></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob-menu">
+  <button class="mob-close" onclick="toggleMob()">✕</button>
+  <a onclick="goTo('home');toggleMob()">Home</a>
+  <a onclick="goTo('marketplace');toggleMob()">Marketplace</a>
+  <a onclick="goTo('bulk');toggleMob()">Bulk Orders</a>
+  <a onclick="goTo('about');toggleMob()">About</a>
+  <button class="btn btn-primary btn-lg" onclick="goTo('about');toggleMob()">Join as Enterprise →</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HOME
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-badge"><span class="hero-dot"></span>India's Social Impact Commons</div>
+    <h1>Buy Good.<br><span class="gradient-text">Do Good.</span></h1>
+    <p class="hero-sub">A verified directory of social enterprises across India. Every product shows exactly what your purchase creates — livelihoods, water saved, carbon reduced.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary btn-lg" onclick="goTo('marketplace')">Explore Products →</button>
+      <button class="btn btn-outline btn-lg" onclick="goTo('about')">Join as Enterprise</button>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-num">147+</div><div class="h-stat-label">Enterprises</div></div>
+      <div class="h-stat"><div class="h-stat-num">12,847</div><div class="h-stat-label">Livelihoods</div></div>
+      <div class="h-stat"><div class="h-stat-num">2.84Cr L</div><div class="h-stat-label">Water Saved</div></div>
+      <div class="h-stat"><div class="h-stat-num">342 T</div><div class="h-stat-label">CO₂ Reduced</div></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-tag">🌟 Featured Products</div>
+        <h2>Products with <span class="gradient-text">Purpose</span></h2>
+        <p>Click any product to see the full impact story. Every metric is verified.</p>
+      </div>
+      <div class="grid-3" id="home-featured-prods"></div>
+      <div style="text-align:center;margin-top:28px">
+        <button class="btn btn-outline btn-lg" onclick="goTo('marketplace')">View All Products →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><div class="sec-tag">✨ How It Works</div><h2>Simple. Transparent. <span class="gradient-text">Impactful.</span></h2></div>
+      <div class="grid-3">
+        <div class="step-card anim-in"><div style="font-size:2rem;margin-bottom:11px">🔍</div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:6px">Browse Verified Enterprises</h3><p style="font-size:.81rem;color:var(--text2);line-height:1.55">Every enterprise passes our 5-step verification framework before appearing on Liveligood.</p></div>
+        <div class="step-card anim-in" style="transition-delay:.1s"><div style="font-size:2rem;margin-bottom:11px">📊</div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:6px">See Impact Before You Buy</h3><p style="font-size:.81rem;color:var(--text2);line-height:1.55">Every product shows verified SROI metrics — water saved, livelihoods supported, CO₂ reduced.</p></div>
+        <div class="step-card anim-in" style="transition-delay:.2s"><div style="font-size:2rem;margin-bottom:11px">🤝</div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:6px">Buy Directly from Producers</h3><p style="font-size:.81rem;color:var(--text2);line-height:1.55">Click Buy Now and go straight to the enterprise. No middlemen. Every rupee to the maker.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head"><div class="sec-tag">🏆 Impact Leaderboard</div><h2>Top Enterprises by <span class="gradient-text">Verified Impact</span></h2></div>
+      <div class="lb-list" id="leaderboard"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><div class="sec-tag">🏢 Changemakers</div><h2>Meet the <span class="gradient-text">Enterprises</span></h2><p>Click any card to see the full profile — mission, founders, registration, impact data.</p></div>
+      <div class="grid-3" id="home-ents"></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head"><div class="sec-tag">🌍 UN SDG Alignment</div><h2>Mapped to <span class="gradient-text">Global Goals</span></h2></div>
+      <div class="sdg-grid" id="sdg-grid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <h2>Ready to <span class="gradient-text">buy with impact?</span></h2>
+        <p>Browse products from verified social enterprises and see what your purchase creates.</p>
+        <div style="display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary btn-lg" onclick="goTo('marketplace')">Explore Marketplace →</button>
+          <button class="btn btn-outline btn-lg" onclick="goTo('bulk')">Bulk / CSR Procurement</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo"><div class="logo-box" style="width:24px;height:24px;font-size:.75rem;border-radius:7px">🌱</div>Liveligood</div><p class="footer-desc">A digital commons for social enterprises in India.</p><div class="soc-row"><span class="soc-btn">📸</span><span class="soc-btn">💼</span><span class="soc-btn">🐦</span></div></div>
+      <div class="footer-col"><h4>Explore</h4><div class="footer-links"><a onclick="goTo('marketplace')">Marketplace</a><a onclick="goTo('bulk')">Bulk Orders</a></div></div>
+      <div class="footer-col"><h4>For Enterprises</h4><div class="footer-links"><a onclick="goTo('about')">Join Liveligood</a><a onclick="goTo('about')">Verification Process</a><a onclick="goTo('about')">SROI Methodology</a></div></div>
+      <div class="footer-col"><h4>Contact</h4><div class="footer-links"><a href="mailto:theliveligoods@gmail.com">theliveligoods@gmail.com</a></div></div>
+    </div>
+    <div class="footer-bottom"><div class="footer-copy">© 2024 Liveligood. Made with 💚 for social impact.</div><div style="font-size:.73rem;color:var(--text3)">🌍 UN SDG Aligned</div></div>
+  </div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MARKETPLACE
+══════════════════════════════════════════ -->
+<div id="page-marketplace" class="page">
+  <div class="mkt-header">
+    <div class="container">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px">📦 Product Directory</div>
+      <h1>Impact <span class="gradient-text">Marketplace</span></h1>
+      <p>Verified products from social enterprises. Click any product to see the full impact story.</p>
+      <div class="search-box">
+        <span style="color:var(--text3)">🔍</span>
+        <input type="text" id="search-input" placeholder="Search products, enterprises..." oninput="filterProds()"/>
+        <span style="color:var(--text3);cursor:pointer;font-size:.85rem" onclick="clearSearch()">✕</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <div class="container"><div class="filters-inner">
+      <span class="f-label">Filter</span>
+      <select class="f-sel" id="f-cat" onchange="filterProds()">
+        <option value="">All Categories</option>
+        <option>Food &amp; Nutrition</option><option>Personal Care</option>
+        <option>Home &amp; Living</option><option>Lifestyle</option>
+        <option>Handicrafts</option><option>Apparel</option><option>Stationery</option>
+      </select>
+      <select class="f-sel" id="f-state" onchange="filterProds()">
+        <option value="">All States</option>
+        <option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option>
+        <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option>
+        <option>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option>
+        <option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option>
+        <option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+        <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+        <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option>
+        <option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
+        <option>Uttarakhand</option><option>West Bengal</option><option>Delhi</option>
+        <option>Puducherry</option><option>Jammu &amp; Kashmir</option><option>Ladakh</option>
+      </select>
+      <select class="f-sel" id="f-impact" onchange="filterProds()">
+        <option value="">All Impact Areas</option>
+        <option value="water">💧 Water Conservation</option>
+        <option value="live">👩 Livelihoods</option>
+        <option value="carbon">🌿 Carbon Reduction</option>
+        <option value="c1">♻️ Waste Reduction</option>
+      </select>
+      <button class="btn-ghost btn" onclick="clearFilters()" style="font-size:.78rem;color:var(--text3)">Clear</button>
+    </div></div>
+  </div>
+
+  <section style="padding:28px 0 64px">
+    <div class="container">
+      <div class="prods-meta">
+        <span class="prods-count" id="prods-count"></span>
+        <select class="f-sel" onchange="sortProds(this.value)" style="min-width:180px">
+          <option value="impact">Sort: Highest Impact</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name">A → Z</option>
+        </select>
+      </div>
+      <div class="prods-grid" id="prods-grid"></div>
+      <div id="load-more-wrap" style="display:none;text-align:center;padding:28px 0">
+        <button class="btn btn-outline btn-lg" onclick="loadMore()">Load More Products</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><div class="footer-copy">© 2024 Liveligood</div><button class="btn btn-outline btn-sm" onclick="goTo('home')">← Home</button></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BULK ORDERS
+══════════════════════════════════════════ -->
+<div id="page-bulk" class="page">
+  <div class="bulk-hero">
+    <div class="container">
+      <div class="inner-2col">
+        <div>
+          <div class="sec-tag" style="display:inline-flex;margin-bottom:14px">📦 Social Procurement</div>
+          <h1>Buy in Bulk.<br><span class="gradient-text">Multiply Impact.</span></h1>
+          <p>For CSR teams, procurement officers, and impact investors. Source verified products — and get a certified SROI report with every bulk order.</p>
+          <div style="display:flex;gap:24px;flex-wrap:wrap">
+            <div><div style="font-size:1.4rem;font-weight:900;color:var(--purple)">50+</div><div style="font-size:.75rem;color:var(--text3)">Corporate Partners</div></div>
+            <div><div style="font-size:1.4rem;font-weight:900;color:var(--purple)">₹2.4Cr</div><div style="font-size:.75rem;color:var(--text3)">CSR Spend Channelled</div></div>
+            <div><div style="font-size:1.4rem;font-weight:900;color:var(--purple)">8,200+</div><div style="font-size:.75rem;color:var(--text3)">Orders Fulfilled</div></div>
+          </div>
+        </div>
+        <div class="calc-box">
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px">📊 Bulk Impact Calculator</div>
+          <div class="calc-inputs">
+            <div><label class="calc-label">Number of units</label><input type="number" class="calc-input" id="calc-qty" value="100" min="1" oninput="calcImpact()"/></div>
+            <div><label class="calc-label">Product category</label>
+              <select class="calc-input" id="calc-cat" onchange="calcImpact()">
+                <option value="All Products">All Products</option>
+                <option value="Food &amp; Nutrition">Food &amp; Nutrition</option>
+                <option value="Personal Care">Personal Care</option>
+                <option value="Home &amp; Living">Home &amp; Living</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Handicrafts">Handicrafts</option>
+                <option value="Apparel">Apparel</option>
+              </select>
+            </div>
+          </div>
+          <div style="font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:9px">Your estimated impact</div>
+          <div class="calc-results">
+            <div class="calc-result"><div class="calc-result-icon">👩</div><div class="calc-result-val" id="calc-live">3</div><div class="calc-result-label">Livelihoods supported</div></div>
+            <div class="calc-result"><div class="calc-result-icon">💧</div><div class="calc-result-val" id="calc-water">10K</div><div class="calc-result-label">Litres water saved</div></div>
+            <div class="calc-result"><div class="calc-result-icon">🌿</div><div class="calc-result-val" id="calc-co2">80</div><div class="calc-result-label">kg CO₂ reduced</div></div>
+            <div class="calc-result"><div class="calc-result-icon">🕐</div><div class="calc-result-val" id="calc-artisan">250</div><div class="calc-result-label">Artisan hours paid</div></div>
+            <div class="calc-sroi">
+              <div><div style="font-size:.82rem;color:var(--green);font-weight:600">Social Return on Investment</div><div style="font-size:.72rem;color:var(--green);opacity:.7">For every ₹1 you spend</div></div>
+              <div style="text-align:right"><div style="font-size:1.5rem;font-weight:900;color:var(--green)">₹<span id="calc-sroi">3.2</span></div><div style="font-size:.67rem;color:var(--green)">social value created</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><div class="sec-tag">⚡ Why Bulk from Liveligood</div><h2>More Than a <span class="gradient-text">Purchase</span></h2></div>
+      <div class="grid-3">
+        <div class="why-card anim-in"><div class="why-icon" style="background:var(--green-dim)">📋</div><h3>CSR Compliance Ready</h3><p>SROI reports aligned with GRI and SDG frameworks — ready for your annual CSR report.</p></div>
+        <div class="why-card anim-in" style="transition-delay:.1s"><div class="why-icon" style="background:rgba(37,99,235,.08)">✅</div><h3>Verified Supply Chain</h3><p>Every enterprise is verified for registration, fair-wage practices, and authentic impact.</p></div>
+        <div class="why-card anim-in" style="transition-delay:.2s"><div class="why-icon" style="background:rgba(217,119,6,.08)">🎁</div><h3>Corporate Gifting</h3><p>Story-rich products with co-branded packaging — perfect for employee and client gifting.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg2);border-top:1px solid var(--border)">
+    <div class="container">
+      <div class="inner-2col">
+        <div>
+          <div class="sec-tag" style="display:inline-flex;margin-bottom:13px">📬 Get in Touch</div>
+          <h2 style="font-size:clamp(1.3rem,2.8vw,1.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:11px">Start Your Social<br>Procurement Journey</h2>
+          <p style="color:var(--text2);font-size:.9rem;line-height:1.7;margin-bottom:20px">Our team responds within 24 hours with a customised proposal and SROI estimate — free of charge.</p>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:center;gap:9px;font-size:.86rem;color:var(--text2)"><div class="c-ico">📧</div>theliveligoods@gmail.com</div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:.86rem;color:var(--text2)"><div class="c-ico">⏱️</div>Response within 24 hours</div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:.86rem;color:var(--text2)"><div class="c-ico">📊</div>Free SROI report with every bulk order</div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:.86rem;color:var(--text2)"><div class="c-ico">🎁</div>Custom co-branded packaging available</div>
+          </div>
+        </div>
+        <div class="inquiry-box">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:16px">Submit Bulk Inquiry</h3>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">Full Name *</label><input type="text" class="form-input" id="b-name" placeholder="Priya Sharma"/></div>
+            <div class="form-group"><label class="form-label">Organisation *</label><input type="text" class="form-input" id="b-org" placeholder="Infosys Foundation"/></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="b-email" placeholder="priya@company.com"/></div>
+            <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="b-phone" placeholder="+91 98765 43210"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Product Interest</label>
+            <select class="form-input" id="b-product">
+              <option>Let us recommend</option><option>Food &amp; Nutrition</option>
+              <option>Personal Care</option><option>Home &amp; Living</option>
+              <option>Lifestyle &amp; Accessories</option><option>Handicrafts</option>
+            </select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">Est. Quantity</label><input type="number" class="form-input" id="b-qty" placeholder="500"/></div>
+            <div class="form-group"><label class="form-label">Budget Range</label>
+              <select class="form-input" id="b-budget">
+                <option>Under ₹1 Lakh</option><option>₹1L – ₹5L</option><option>₹5L – ₹25L</option><option>₹25L+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" id="b-msg" placeholder="Tell us about your CSR program, event, or procurement need..."></textarea></div>
+          <button class="btn btn-primary" style="width:100%;padding:12px;font-size:.92rem;border-radius:var(--r)" onclick="submitBulk()">Submit Inquiry →</button>
+          <p style="font-size:.7rem;color:var(--text3);text-align:center;margin-top:8px">Your information is never shared with third parties.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><div class="footer-copy">© 2024 Liveligood</div><button class="btn btn-outline btn-sm" onclick="goTo('home')">← Home</button></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT — Digital Commons
+══════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="container">
+      <div class="sec-tag" style="display:inline-flex;margin-bottom:13px">🌱 About Liveligood</div>
+      <h1>A Digital Commons<br><span class="gradient-text">for Social Enterprises</span></h1>
+      <p>A commons is a shared resource maintained by a community for the benefit of all. Liveligood is that — for social enterprises in India. Open to list on. Free to browse. Built on transparency.</p>
+    </div>
+  </div>
+
+  <!-- WHO WE ARE -->
+  <div class="about-section">
+    <div class="container">
+      <div class="about-2col">
+        <div>
+          <div class="about-label">Who We Are</div>
+          <div class="about-h2">Not a marketplace.<br>A <span class="gradient-text">digital commons.</span></div>
+          <p class="about-p">Liveligood is a verified directory and discovery platform for social enterprises in India. We do not take commissions on sales. We do not charge listing fees. We are a community-built platform that makes social enterprises visible, their impact verifiable, and their products discoverable.</p>
+          <p class="about-p">We believe that if people could see the full value of what they buy — not just the price tag, but the livelihoods created, the water saved, the carbon not emitted — they would choose differently. Liveligood is that window.</p>
+          <p class="about-p">Every enterprise on this platform has been through our verification process. Every impact number has been reviewed. Every product links directly to its producer — no middlemen, no markup, no mystery.</p>
+        </div>
+        <div class="val-grid" style="align-content:start">
+          <div class="val-card"><div class="val-icon">🔍</div><div class="val-title">Radical Transparency</div><div class="val-desc">Every SROI claim is verified. Every registration is checked. Numbers are backed by data, not stories.</div></div>
+          <div class="val-card"><div class="val-icon">🤝</div><div class="val-title">Direct Connection</div><div class="val-desc">We never take a cut of product sales. Buyers go directly to producer websites. We exist to build trust — not profit from it.</div></div>
+          <div class="val-card"><div class="val-icon">🌱</div><div class="val-title">Community Ownership</div><div class="val-desc">Liveligood is built with and for social enterprises. Their needs define our roadmap.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY WE EXIST -->
+  <div class="about-section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="about-2col">
+        <div>
+          <div class="about-label">Why We Exist</div>
+          <div class="about-h2">India's social enterprises<br>are <span class="gradient-text">invisible.</span></div>
+          <p class="about-p">India has over 2 million social enterprises. Most of them are invisible to mainstream buyers. Their products create real, measurable change — livelihoods for tribal artisans, clean water for rural families, carbon sequestration for a warming planet. But this value is hidden behind a price tag that doesn't tell the full story.</p>
+          <p class="about-p">Meanwhile, conscious buyers — individuals, CSR teams, procurement officers — have no reliable way to find verified social enterprises or know if the "impact" claims on a product are real.</p>
+          <p class="about-p"><strong>Liveligood is the bridge.</strong> A place where impact is calculated, verified, and made visible — before the purchase, not after.</p>
+        </div>
+        <div style="background:#fff;border-radius:var(--r3);padding:26px;border:1px solid var(--border)">
+          <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:14px">The problems we solve</div>
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;gap:11px"><div style="width:26px;height:26px;background:rgba(220,38,38,.08);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem">❌</div><div><div style="font-size:.86rem;font-weight:600;margin-bottom:2px">Invisible enterprises</div><div style="font-size:.78rem;color:var(--text2)">Social enterprises lack digital presence and are not discoverable by buyers who'd choose them.</div></div></div>
+            <div style="display:flex;gap:11px"><div style="width:26px;height:26px;background:rgba(220,38,38,.08);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem">❌</div><div><div style="font-size:.86rem;font-weight:600;margin-bottom:2px">Unverified impact claims</div><div style="font-size:.78rem;color:var(--text2)">Greenwashing is rampant. Buyers can't distinguish genuine impact from marketing.</div></div></div>
+            <div style="display:flex;gap:11px"><div style="width:26px;height:26px;background:rgba(220,38,38,.08);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem">❌</div><div><div style="font-size:.86rem;font-weight:600;margin-bottom:2px">CSR spend misdirected</div><div style="font-size:.78rem;color:var(--text2)">Corporates want to spend CSR budgets on impact — but verified options are hard to find at scale.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISION & MISSION -->
+  <div class="about-section">
+    <div class="container">
+      <div class="sec-head" style="margin-bottom:26px"><div class="sec-tag">🧭 Our Direction</div><h2>Vision & <span class="gradient-text">Mission</span></h2></div>
+      <div class="vm-grid">
+        <div class="vm-card" style="background:linear-gradient(135deg,#f0fdf8,#dcfce7)"><div class="vm-label" style="color:var(--green)">🔭 Vision</div><div class="vm-text" style="color:#166534">A world where every product carries its full story — the price you pay, and the value it creates. Where doing good is the most competitive business model, and social enterprises don't have to choose between mission and market.</div></div>
+        <div class="vm-card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)"><div class="vm-label" style="color:var(--blue)">🎯 Mission</div><div class="vm-text" style="color:#1e3a5f">To build the most trusted directory of social enterprises in India — where every enterprise is verified, every product's impact is calculable, and every buyer can see exactly what their purchase creates.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERIFICATION -->
+  <div class="about-section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="about-2col">
+        <div>
+          <div class="about-label">Verification Framework</div>
+          <div class="about-h2">We verify.<br>Here's <span class="gradient-text">exactly how.</span></div>
+          <p class="about-p">Getting listed on Liveligood is not automatic. Every enterprise goes through our 5-step verification framework. We ask hard questions — kindly. Trust is built through process, not promises.</p>
+          <p class="about-p" style="font-size:.82rem;color:var(--text3)">Average time from application to listing: <strong style="color:var(--text1)">10–14 working days</strong></p>
+        </div>
+        <div class="verif-steps">
+          <div class="verif-step"><div class="verif-num">1</div><div><div class="verif-title">Document Review</div><div class="verif-desc">Submit your registration certificate, GSTIN (if applicable), and founding documents. We verify your legal status and registration type.</div></div></div>
+          <div class="verif-step"><div class="verif-num">2</div><div><div class="verif-title">Mission Alignment</div><div class="verif-desc">We assess whether your social or environmental mission is central to how you operate — not peripheral. We look at ownership structure, beneficiary model, and surplus usage.</div></div></div>
+          <div class="verif-step"><div class="verif-num">3</div><div><div class="verif-title">Impact Data Submission</div><div class="verif-desc">You fill our standardised impact template. We work with you to identify the right metrics. You don't need sophisticated monitoring systems; we help you build what you need.</div></div></div>
+          <div class="verif-step"><div class="verif-num">4</div><div><div class="verif-title">Verification Call</div><div class="verif-desc">A 45-minute call with our impact team to walk through your data, story, and evidence.</div></div></div>
+          <div class="verif-step"><div class="verif-num">5</div><div><div class="verif-title">Listing & Annual Audit</div><div class="verif-desc">You're listed — free, forever. We re-verify annually to keep your data current and credible.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SROI METHODOLOGY -->
+  <div class="about-section">
+    <div class="container">
+      <div class="about-2col">
+        <div>
+          <div class="about-label">SROI Methodology</div>
+          <div class="about-h2">How we calculate<br><span class="gradient-text">social return.</span></div>
+          <p class="about-p">SROI (Social Return on Investment) measures the social, environmental, and economic value created per rupee spent. On Liveligood, we calculate SROI <em>per product unit</em> — so you see the exact impact of your individual purchase.</p>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--text2)"><span style="color:var(--green);font-weight:700">✓</span>Social Value International SROI Framework</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--text2)"><span style="color:var(--green);font-weight:700">✓</span>GRI Standards for Sustainability Reporting</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--text2)"><span style="color:var(--green);font-weight:700">✓</span>UN SDG Impact Standards</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--text2)"><span style="color:var(--green);font-weight:700">✓</span>SEBI ESG Disclosure Guidelines (India)</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:.82rem;font-weight:700;margin-bottom:10px">Sample — Tribal Turmeric Soap (₹200)</div>
+          <div class="sroi-calc-ex">
+            <div class="sroi-row"><span style="color:var(--text2)">💧 Water saved in production</span><span style="font-weight:700;color:var(--blue)">8 Litres</span></div>
+            <div class="sroi-row"><span style="color:var(--text2)">👩 Artisan hours supported</span><span style="font-weight:700;color:var(--gold)">2.4 Hours</span></div>
+            <div class="sroi-row"><span style="color:var(--text2)">🌿 Chemical waste avoided</span><span style="font-weight:700;color:var(--green)">18g</span></div>
+            <div class="sroi-row"><span style="color:var(--text2)">🌳 Forest income generated</span><span style="font-weight:700;color:var(--purple)">₹24 to tribal family</span></div>
+            <div class="sroi-row sroi-total"><span style="font-weight:700;color:var(--green)">Total Social Value Created</span><span style="font-weight:900;color:var(--green);font-size:1rem">₹3.2 per ₹1 spent</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO JOIN -->
+  <div class="about-section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head" style="margin-bottom:32px"><div class="sec-tag">🏢 For Enterprises</div><h2>Be Part of the <span class="gradient-text">Commons</span></h2></div>
+      <div class="join-box">
+        <div style="font-size:2.8rem;margin-bottom:14px">🌱</div>
+        <h2 style="font-size:1.45rem;font-weight:800;margin-bottom:9px">List Your Social Enterprise</h2>
+        <p style="color:var(--text2);font-size:.9rem;line-height:1.65;margin-bottom:18px">Are you a social enterprise creating verified impact? Get listed — reach thousands of conscious buyers, CSR teams, and impact investors across India. Free forever.</p>
+        <div style="margin-bottom:20px">
+          <div class="req-item"><span class="req-check">✓</span><span>Any registered entity — Section 8, Producer Company, FPO, Trust, Society, Pvt Ltd, or NGO</span></div>
+          <div class="req-item"><span class="req-check">✓</span><span>A genuine social or environmental mission central to your operations (not peripheral)</span></div>
+          <div class="req-item"><span class="req-check">✓</span><span>At least 6 months of active operations</span></div>
+          <div class="req-item"><span class="req-check">✓</span><span>Ability to share basic impact data — we help you identify what to track</span></div>
+        </div>
+        <div style="display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-bottom:13px">
+          <a href="mailto:theliveligoods@gmail.com?subject=Application to List on Liveligood" class="btn btn-primary btn-lg">Apply to List →</a>
+          <button class="btn btn-outline btn-lg" onclick="goTo('bulk')">Bulk Procurement</button>
+        </div>
+        <p style="font-size:.76rem;color:var(--text3)">Email <strong>theliveligoods@gmail.com</strong> with subject "Application to List"</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo"><div class="logo-box" style="width:24px;height:24px;font-size:.75rem;border-radius:7px">🌱</div>Liveligood</div><p class="footer-desc">A digital commons for social enterprises in India.</p><div class="soc-row"><span class="soc-btn">📸</span><span class="soc-btn">💼</span><span class="soc-btn">🐦</span></div></div>
+      <div class="footer-col"><h4>Explore</h4><div class="footer-links"><a onclick="goTo('marketplace')">Marketplace</a><a onclick="goTo('bulk')">Bulk Orders</a></div></div>
+      <div class="footer-col"><h4>For Enterprises</h4><div class="footer-links"><a onclick="goTo('about')">Join Liveligood</a><a onclick="goTo('about')">Verification Process</a></div></div>
+      <div class="footer-col"><h4>Contact</h4><div class="footer-links"><a href="mailto:theliveligoods@gmail.com">theliveligoods@gmail.com</a></div></div>
+    </div>
+    <div class="footer-bottom"><div class="footer-copy">© 2024 Liveligood. Made with 💚 for social impact.</div><div style="font-size:.73rem;color:var(--text3)">🌍 UN SDG Aligned</div></div>
+  </div></footer>
+</div>
+
+<!-- ENTERPRISE MODAL -->
+<div class="ent-overlay" id="ent-overlay" onclick="closeEntModal()"></div>
+<div class="ent-modal" id="ent-modal">
+  <div class="m-header"><span class="m-header-label">Enterprise Profile</span><button class="m-close" onclick="closeEntModal()">✕</button></div>
+  <div class="m-body" id="ent-modal-body"></div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="prod-overlay" id="prod-overlay" onclick="closeProdModal()"></div>
+<div class="prod-modal" id="prod-modal">
+  <button class="pm-close" onclick="closeProdModal()">✕</button>
+  <div id="prod-modal-body"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toast-icon">✅</span><span class="toast-text" id="toast-text"></span></div>
+
+<script>
+/* ─── CONFIG ─────────────────────────────────── */
+const CONFIG = {
+  sheets: {
+    enterprises:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQoMs0Z8JVjYqxQ9As8I3hrylqED-HUPrXDmLPg3qGvjKZEg2jGGo3Lm1h3l_b3UQ/pub?gid=275419971&single=true&output=csv',
+    products:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQoMs0Z8JVjYqxQ9As8I3hrylqED-HUPrXDmLPg3qGvjKZEg2jGGo3Lm1h3l_b3UQ/pub?gid=1608298132&single=true&output=csv',
+  },
+  appsScriptUrl:'',
+  email:'theliveligoods@gmail.com',
+  currency:'₹',
+};
+
+/* ─── SDG DATA ───────────────────────────────── */
+const SDG={1:{n:'No Poverty',e:'🏘️',c:'#e5243b'},2:{n:'Zero Hunger',e:'🌾',c:'#dda63a'},3:{n:'Good Health',e:'💊',c:'#4c9f38'},4:{n:'Quality Education',e:'📚',c:'#c5192d'},5:{n:'Gender Equality',e:'⚖️',c:'#ff3a21'},6:{n:'Clean Water',e:'💧',c:'#26bde2'},7:{n:'Clean Energy',e:'☀️',c:'#fcc30b'},8:{n:'Decent Work',e:'💼',c:'#a21942'},9:{n:'Innovation',e:'🏗️',c:'#fd6925'},10:{n:'Reduced Inequalities',e:'🤝',c:'#dd1367'},11:{n:'Sustainable Cities',e:'🌆',c:'#fd9d24'},12:{n:'Responsible Consumption',e:'♻️',c:'#bf8b2e'},13:{n:'Climate Action',e:'🌍',c:'#3f7e44'},14:{n:'Life Below Water',e:'🐠',c:'#0a97d9'},15:{n:'Life on Land',e:'🌳',c:'#56c02b'},16:{n:'Peace & Justice',e:'🕊️',c:'#00689d'},17:{n:'Partnerships',e:'🌐',c:'#19486a'}};
+
+/* ─── BULK IMPACT DATA ───────────────────────── */
+const BI={'All Products':{live:.03,water:100,co2:.8,art:2.5,sroi:3.2},'Food & Nutrition':{live:.04,water:80,co2:.6,art:1.5,sroi:2.8},'Personal Care':{live:.025,water:12,co2:.3,art:2.8,sroi:3.2},'Home & Living':{live:.015,water:450,co2:1.2,art:1,sroi:3.5},'Lifestyle':{live:.03,water:20,co2:.9,art:3.5,sroi:3},'Handicrafts':{live:.06,water:30,co2:1.2,art:5,sroi:4.2},'Apparel':{live:.045,water:55,co2:1.5,art:4,sroi:3.8}};
+
+/* ─── SAMPLE DATA ────────────────────────────── */
+const SE=[
+  {id:'ENT001',name:'Haarika Naturals',tagline:'Tribal wisdom meets modern wellness',logo:'🌿',logoC:'linear-gradient(135deg,#4ade80,#16a34a)',photoUrl:'',founders:'Sunita Devi, Meera Patel',mission:'To empower tribal women artisans in the Eastern Ghats by providing fair-wage livelihoods through natural, chemical-free personal care products rooted in indigenous herbal knowledge.',vision:'A world where ancient herbal wisdom creates modern prosperity for forest-dwelling communities, preserving biodiversity and uplifting the most marginalised.',story:'Haarika Naturals works with 127 tribal women across 12 villages in the Eastern Ghats foothills of Visakhapatnam. Since 2019, the enterprise has reduced household chemical use in partner villages by 38% through natural alternatives.',regType:'Section 8 Company',regNo:'U85300TG2019NPL131456',address:'Village Paderu, Visakhapatnam District',city:'Visakhapatnam',state:'Andhra Pradesh',website:'https://haarika-naturals.in',sdgs:[1,5,8,12,15],livelihoods:127,water:85000,co2:2400,founded:2019,team:34,featured:true,score:88},
+  {id:'ENT002',name:'WaterWise Collective',tagline:'Clean water is a right, not a privilege',logo:'💧',logoC:'linear-gradient(135deg,#38bdf8,#0284c7)',photoUrl:'',founders:'Dr. Rajesh Kumar, Ananya Singh',mission:'To make safe drinking water accessible to rural communities through affordable bamboo-based water purification technology.',vision:'No child should miss school due to water-borne illness. No woman should walk 5km for clean water.',story:"WaterWise Collective was born from Dr. Rajesh Kumar's 15 years of research. Their bamboo biofilter purifies 500 litres per day and costs 40% less than traditional ceramic filters.",regType:'Producer Company',regNo:'CIN: U27209RJ2017PTC058214',address:'14, Adarsh Nagar, Jaipur',city:'Jaipur',state:'Rajasthan',website:'https://waterwise.in',sdgs:[3,6,10,12],livelihoods:89,water:2400000,co2:1200,founded:2017,team:28,featured:true,score:95},
+  {id:'ENT003',name:'ReWeave',tagline:'Waste is just a resource in the wrong place',logo:'🧵',logoC:'linear-gradient(135deg,#c084fc,#7c3aed)',photoUrl:'',founders:'Priya Nair, Karthik Subramaniam',mission:"To repurpose India's textile waste into premium lifestyle products while creating dignified employment for women from low-income households.",vision:'A circular textile economy where no fabric ends up in landfill and every artisan earns a living wage.',story:'ReWeave began as a weekend project in a Chennai garage. Today it employs 56 women artisans and processes 2+ tonnes of textile waste monthly.',regType:'Social Enterprise (Pvt Ltd)',regNo:'CIN: U52100TN2021PTC145678',address:'22, Tondiarpet Industrial Estate, Chennai',city:'Chennai',state:'Tamil Nadu',website:'https://reweave.in',sdgs:[8,10,12,13],livelihoods:56,water:18000,co2:8700,founded:2021,team:21,featured:true,score:84},
+  {id:'ENT004',name:'SunSeed Foods',tagline:'Reviving millets. Reviving farmers.',logo:'🌾',logoC:'linear-gradient(135deg,#fbbf24,#d97706)',photoUrl:'',founders:'Bharati Devi, Suresh Patel',mission:'To revive indigenous grain cultivation among small and marginal farmers in Madhya Pradesh by providing market linkage, fair prices, and agri-support.',vision:"India's food security built on indigenous grains, supported by 10 million small farmers earning dignified incomes.",story:'SunSeed Foods works with 312 small and marginal farmers across 28 villages in Bundelkhand. Shifting farmers to millets has reduced groundwater extraction by 156,000 litres annually.',regType:'FPO (Farmer Producer Organisation)',regNo:'FPO/MP/2018/00487',address:'Tikamgarh, Bundelkhand',city:'Tikamgarh',state:'Madhya Pradesh',website:'https://sunseedfoods.in',sdgs:[1,2,3,8,12,15],livelihoods:312,water:156000,co2:3600,founded:2018,team:68,featured:false,score:91},
+];
+const SP=[
+  {id:'PRD001',eid:'ENT001',name:'Tribal Turmeric & Neem Soap',desc:'Cold-pressed using wild turmeric and hand-harvested neem leaves by tribal women artisans. No SLS, parabens, or synthetic fragrance. Each bar supports 2.4 hours of fair-wage work and saves 8 litres of water compared to conventional soap production.',cat:'Personal Care',emoji:'🧼',bg:'linear-gradient(135deg,#fef3c7,#fcd34d)',imageUrl:'',pMin:180,pMax:220,link:'https://haarika-naturals.in/soap',sroi:{water:'8L water saved',live:'2.4 artisan hours',c1:'18g chemicals avoided',c2:'₹24 to tribal family'},sdgs:[5,8,15],score:78,bulk:true,feat:true},
+  {id:'PRD002',eid:'ENT002',name:'Bamboo Biofilter — Home Kit',desc:'Gravity-fed water purifier made from sustainably harvested bamboo. Purifies 500L per day. No electricity needed. Replaces 1 plastic filter per year and brings safe drinking water to one family.',cat:'Home & Living',emoji:'💧',bg:'linear-gradient(135deg,#e0f2fe,#38bdf8)',imageUrl:'',pMin:850,pMax:1200,link:'https://waterwise.in/home-kit',sroi:{water:'500L/day purified',live:'1 rural technician',c1:'365L plastic avoided/yr',c2:'1 family safe water'},sdgs:[3,6,12],score:95,bulk:true,feat:true},
+  {id:'PRD003',eid:'ENT003',name:'Hand-Loomed Upcycled Tote',desc:'Woven from salvaged cotton and denim scraps. Each tote is unique, traceable to the artisan who made it, and replaces 3 plastic bags. 200g of textile waste is saved with every bag produced.',cat:'Lifestyle',emoji:'👜',bg:'linear-gradient(135deg,#f3e8ff,#c084fc)',imageUrl:'',pMin:350,pMax:450,link:'https://reweave.in/tote',sroi:{water:'18L water saved',live:'3.5 artisan hours',carbon:'1.2kg CO₂ saved',c1:'200g textile saved'},sdgs:[8,12,13],score:85,bulk:true,feat:true},
+  {id:'PRD004',eid:'ENT001',name:'Wild Forest Honey — 500g',desc:'Raw, unprocessed honey from bee colonies tended by tribal honey collectors in the Eastern Ghats. Naturally multi-floral. Collected sustainably — colonies are never disturbed during breeding season.',cat:'Food & Nutrition',emoji:'🍯',bg:'linear-gradient(135deg,#fef9c3,#fbbf24)',imageUrl:'',pMin:320,pMax:480,link:'https://haarika-naturals.in/honey',sroi:{live:'1 tribal honey collector',c1:'200+ flowers pollinated',c2:'₹80 forest income'},sdgs:[1,2,15],score:88,bulk:false,feat:false},
+  {id:'PRD005',eid:'ENT004',name:'Heritage Millet Mix — 1kg',desc:'A blend of ragi, bajra, and jowar sourced directly from 8 small farmers in Bundelkhand. High-protein, high-fibre, drought-resilient — and 60% less water-intensive than wheat.',cat:'Food & Nutrition',emoji:'🌾',bg:'linear-gradient(135deg,#fef3c7,#d97706)',imageUrl:'',pMin:240,pMax:280,link:'https://sunseedfoods.in/millet-mix',sroi:{water:'60% less water than wheat',live:'8 farmers supported',carbon:'0.8kg CO₂ lower',c1:'3 nutritious meals'},sdgs:[2,3,8,15],score:81,bulk:true,feat:false},
+  {id:'PRD006',eid:'ENT003',name:'Upcycled Denim Pouch',desc:'Compact pouch crafted from salvaged denim scraps. Double-stitched by skilled artisans. Natural rope drawstring. Zero virgin materials used. Each pouch diverts 300g of denim from landfill.',cat:'Lifestyle',emoji:'👝',bg:'linear-gradient(135deg,#dbeafe,#3b82f6)',imageUrl:'',pMin:290,pMax:350,link:'https://reweave.in/denim-pouch',sroi:{live:'1.8 artisan hours',carbon:'0.6kg CO₂ saved',c1:'300g denim waste saved'},sdgs:[8,12,13],score:76,bulk:true,feat:false},
+  {id:'PRD007',eid:'ENT002',name:'Rainwater Harvesting Kit',desc:'Community-designed DIY rainwater collection kit with illustrated manual. Helps households collect 800L of rainwater per monsoon season, reducing groundwater dependence and saving ₹1,200 on water bills annually.',cat:'Home & Living',emoji:'🌧️',bg:'linear-gradient(135deg,#e0f2fe,#0ea5e9)',imageUrl:'',pMin:450,pMax:600,link:'https://waterwise.in/rain-kit',sroi:{water:'800L harvested/season',live:'1 rural installer',c1:'₹1,200 water bill saved',c2:'Groundwater recharged'},sdgs:[6,11,15],score:87,bulk:true,feat:false},
+  {id:'PRD008',eid:'ENT004',name:'Organic Red Rice — 2kg',desc:'Heritage variety red rice from the Narmada valley. Grown without pesticides, naturally sun-dried. Rich in antioxidants and 3× more iron than white rice. Supports 4 marginal farmers with fair-price contracts.',cat:'Food & Nutrition',emoji:'🍚',bg:'linear-gradient(135deg,#fee2e2,#ef4444)',imageUrl:'',pMin:180,pMax:220,link:'https://sunseedfoods.in/red-rice',sroi:{live:'4 marginal farmers',water:'40% less water than hybrid',carbon:'0.5kg CO₂ lower',c1:'Biodiversity preserved'},sdgs:[1,2,3,15],score:79,bulk:false,feat:false},
+];
+
+/* ─── STATE ──────────────────────────────────── */
+let ents=[],prods=[],sortBy='impact',shown=6,mobOpen=false;
+
+/* ─── HELPERS ────────────────────────────────── */
+function driveImg(url){if(!url||!url.trim())return '';url=url.trim();const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);return m?`https://drive.google.com/uc?export=view&id=${m[1]}`:url;}
+function fmt(n){if(n>=10000000)return(n/10000000).toFixed(2)+'Cr';if(n>=100000)return(n/100000).toFixed(1)+'L';if(n>=1000)return(n/1000).toFixed(1)+'K';return n.toLocaleString('en-IN');}
+function catStyle(cat){const m={'Personal Care':'background:rgba(217,119,6,.07);color:#d97706;border:1px solid rgba(217,119,6,.15)','Food & Nutrition':'background:rgba(5,150,105,.07);color:#059669;border:1px solid rgba(5,150,105,.15)','Home & Living':'background:rgba(37,99,235,.07);color:#2563eb;border:1px solid rgba(37,99,235,.15)','Lifestyle':'background:rgba(124,58,237,.07);color:#7c3aed;border:1px solid rgba(124,58,237,.15)','Handicrafts':'background:rgba(219,39,119,.07);color:#db2777;border:1px solid rgba(219,39,119,.15)','Apparel':'background:rgba(220,38,38,.07);color:#dc2626;border:1px solid rgba(220,38,38,.15)'};return m[cat]||'background:var(--bg3);color:var(--text2)';}
+
+/* ─── DATA LOADING ───────────────────────────── */
+function fixUrl(u){if(!u)return '';u=u.trim().replace('/pubhtml','/pub');if(!u.includes('output=csv'))u+=(u.includes('?')?'&':'?')+'output=csv';return u;}
+async function fetchSheet(url){if(!url)return null;try{const r=await fetch(fixUrl(url));if(!r.ok)throw new Error('HTTP '+r.status);const t=await r.text();if(t.trim().startsWith('<!'))throw new Error('Got HTML');return t;}catch(e){console.warn('[Liveligood]',e.message);return null;}}
+function parseCSV(txt){const lines=txt.trim().split('\n');const hdr=lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim());return lines.slice(1).filter(l=>l.trim()).map(line=>{const vals=[];let inQ=false,cur='';for(const ch of line){if(ch==='"'){inQ=!inQ}else if(ch===','&&!inQ){vals.push(cur.trim());cur=''}else cur+=ch;}vals.push(cur.trim());return Object.fromEntries(hdr.map((h,i)=>[h,(vals[i]||'').replace(/^"|"$/g,'')]));});}
+function parseEnts(t){return parseCSV(t).filter(r=>r.enterprise_id).map(r=>({id:r.enterprise_id,name:r.name,tagline:r.tagline,logo:r.logo_emoji||'🏢',logoC:r.logo_color||'linear-gradient(135deg,#059669,#0d9488)',photoUrl:r.enterprise_photo_url||'',founders:r.founders,mission:r.mission,vision:r.vision,story:r.impact_story||'',regType:r.registration_type,regNo:r.registration_number,address:r.address,city:r.city,state:r.state,website:r.website,sdgs:(r.sdg_goals||'').split(',').map(Number).filter(Boolean),livelihoods:+r.total_livelihoods||0,water:+r.total_water_saved_litres||0,co2:+r.total_co2_reduced_kg||0,founded:r.year_founded,team:+r.team_size||0,featured:r.featured==='TRUE',score:+r.impact_score||70}));}
+function parseProds(t){return parseCSV(t).filter(r=>r.product_id).map(r=>({id:r.product_id,eid:r.enterprise_id,name:r.name,desc:r.description,cat:r.category,emoji:r.emoji||'📦',bg:r.bg_color||'linear-gradient(135deg,#f1f4f2,#e5e7eb)',imageUrl:r.product_image_url||'',pMin:+r.price_min||0,pMax:+r.price_max||0,link:r.buy_link||'#',sroi:{water:r.sroi_water||'',live:r.sroi_livelihood||'',carbon:r.sroi_carbon||'',c1:r.sroi_custom1||'',c2:r.sroi_custom2||''},sdgs:(r.sdg_goals||'').split(',').map(Number).filter(Boolean),score:+r.impact_score||70,bulk:r.bulk_available==='TRUE',feat:r.featured==='TRUE'}));}
+async function loadData(){const[et,pt]=await Promise.all([fetchSheet(CONFIG.sheets.enterprises),fetchSheet(CONFIG.sheets.products)]);ents=et?parseEnts(et):SE;prods=pt?parseProds(pt):SP;}
+
+/* ─── PRODUCT IMAGE ──────────────────────────── */
+function prodImgHtml(p,modal){
+  const img=driveImg(p.imageUrl);
+  const h=modal?'height:260px;':'';
+  if(img){const fb=`this.parentElement.innerHTML='<div style=\\'background:${p.bg};width:100%;height:100%;display:flex;align-items:center;justify-content:center;\\'><span style=\\'font-size:3.5rem;\\'>${p.emoji}</span></div>'`;return`<div class="prod-img-wrap" style="${h}"><img src="${img}" alt="${p.name}" onerror="${fb}"/></div>`;}
+  return`<div class="prod-img-wrap" style="background:${p.bg};${h}"><span class="prod-emoji">${p.emoji}</span></div>`;
+}
+
+/* ─── PRODUCT CARD ───────────────────────────── */
+function prodCard(p){
+  const ent=ents.find(e=>e.id===p.eid)||{};
+  const s=p.sroi||{};
+  const chips=[s.water?`<span class="sc sc-water">💧 ${s.water}</span>`:'',s.live?`<span class="sc sc-live">👩 ${s.live}</span>`:'',s.carbon?`<span class="sc sc-carbon">🌿 ${s.carbon}</span>`:'',s.c1?`<span class="sc sc-c">✨ ${s.c1}</span>`:''  ].filter(Boolean).slice(0,3).join('');
+  return`<div class="prod-card" onclick="openProdModal('${p.id}')">
+    ${prodImgHtml(p,false)}
+    <div class="prod-body">
+      <span class="prod-cat" style="${catStyle(p.cat)}">${p.cat}</span>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-ent" onclick="event.stopPropagation();openEntModal('${p.eid}')">${ent.logo||'🏢'} ${ent.name||'Unknown'} <span class="vtag">✓</span></div>
+      <div class="sroi-chips">${chips}</div>
+      <div class="prod-foot">
+        <div class="prod-price">${CONFIG.currency}${p.pMin}${p.pMax!==p.pMin?`–${CONFIG.currency}${p.pMax}`:''}</div>
+        <a href="${p.link}" target="_blank" rel="noopener" class="btn-buy" onclick="event.stopPropagation()">Buy Now ↗</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ─── ENTERPRISE CARD ────────────────────────── */
+function entCard(e){
+  const pi=driveImg(e.photoUrl);
+  const ph=pi?`<img src="${pi}" alt="${e.name}" style="width:100%;height:100%;object-fit:cover"/>`:`<div style="width:100%;height:100%;background:${e.logoC};opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2rem">${e.logo}</div>`;
+  return`<div class="ent-card" onclick="openEntModal('${e.id}')">
+    <div class="ent-photo">${ph}<div class="ent-logo-c" style="background:${e.logoC}">${e.logo}</div></div>
+    <div class="ent-body">
+      <div class="ent-name">${e.name}</div>
+      <div class="ent-tagline">${e.tagline}</div>
+      <div class="ent-loc">📍 ${e.city}, ${e.state}</div>
+      <div class="ent-metrics">
+        <div class="ent-m"><div class="ent-m-num">${e.livelihoods}</div><div class="ent-m-label">Livelihoods</div></div>
+        <div class="ent-m"><div class="ent-m-num">${fmt(e.water)}L</div><div class="ent-m-label">Water Saved</div></div>
+        <div class="ent-m"><div class="ent-m-num">${fmt(e.co2)}kg</div><div class="ent-m-label">CO₂ Reduced</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:.64rem;font-weight:600;padding:3px 9px;border-radius:100px;background:var(--green-dim);color:var(--green)">${e.regType||'Social Enterprise'}</span>
+        <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openEntModal('${e.id}')">View →</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ─── PRODUCT MODAL ──────────────────────────── */
+function openProdModal(pid){
+  const p=prods.find(x=>x.id===pid);if(!p)return;
+  const ent=ents.find(e=>e.id===p.eid)||{};
+  const s=p.sroi||{};
+  const si=[s.water?{i:'💧',v:s.water,d:'Water conservation'}:'',s.live?{i:'👩',v:s.live,d:'Livelihood supported'}:'',s.carbon?{i:'🌿',v:s.carbon,d:'Carbon reduction'}:'',s.c1?{i:'✨',v:s.c1,d:'Additional impact'}:'',s.c2?{i:'🌱',v:s.c2,d:'Additional impact'}:''].filter(Boolean);
+  const sdgH=(p.sdgs||[]).map(n=>`<span class="sdg-c sdg-${n}" style="padding:3px 8px">SDG ${n}</span>`).join('');
+  document.getElementById('prod-modal-body').innerHTML=`
+    <div class="pm-img" style="border-radius:var(--r3) var(--r3) 0 0">${prodImgHtml(p,true).replace('class="prod-img-wrap"','style="width:100%;height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden"')}</div>
+    <div class="pm-body">
+      <span class="pm-cat" style="${catStyle(p.cat)}">${p.cat}</span>
+      <div class="pm-name">${p.name}</div>
+      <div class="pm-ent" onclick="closeProdModal();setTimeout(()=>openEntModal('${p.eid}'),200)">${ent.logo||'🏢'} ${ent.name||''} <span class="vtag">✓ Verified</span></div>
+      <div class="pm-desc">${p.desc}</div>
+      ${si.length?`<div class="pm-sroi-head">📊 What your purchase does</div><div class="pm-sroi-grid">${si.map(it=>`<div class="pm-sroi-item"><div class="pm-sroi-icon">${it.i}</div><div><div class="pm-sroi-val">${it.v}</div><div class="pm-sroi-desc">${it.d}</div></div></div>`).join('')}</div>`:''}
+      ${sdgH?`<div class="pm-sdgs">${sdgH}</div>`:''}
+      <div class="pm-foot">
+        <div class="pm-price">${CONFIG.currency}${p.pMin}${p.pMax!==p.pMin?` – ${CONFIG.currency}${p.pMax}`:''}</div>
+        <a href="${p.link}" target="_blank" rel="noopener" class="btn btn-primary">Buy from ${ent.name||'Producer'} ↗</a>
+      </div>
+    </div>`;
+  document.getElementById('prod-overlay').classList.add('open');
+  document.getElementById('prod-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeProdModal(){document.getElementById('prod-overlay').classList.remove('open');document.getElementById('prod-modal').classList.remove('open');document.body.style.overflow='';}
+
+/* ─── ENTERPRISE MODAL ───────────────────────── */
+function openEntModal(eid){
+  const e=ents.find(x=>x.id===eid);if(!e)return;
+  const ep=prods.filter(p=>p.eid===eid);
+  const sdgH=(e.sdgs||[]).map(n=>`<span class="sdg-c sdg-${n}" style="font-size:.63rem;padding:3px 8px">SDG ${n}: ${(SDG[n]||{}).n||''}</span>`).join('');
+  const pi=driveImg(e.photoUrl);
+  document.getElementById('ent-modal-body').innerHTML=`
+    ${pi?`<div style="height:130px;overflow:hidden;margin:-20px -20px 18px;border-radius:0"><img src="${pi}" style="width:100%;height:100%;object-fit:cover"/></div>`:''}
+    <div class="m-ent-top">
+      <div class="m-logo-lg" style="background:${e.logoC}">${e.logo}</div>
+      <div class="m-ent-name">${e.name}</div>
+      <div class="m-ent-tagline">${e.tagline}</div>
+      <div class="m-badges"><span class="m-badge m-badge-green">✓ ${e.regType}</span><span class="m-badge m-badge-gold">Est. ${e.founded}</span></div>
+    </div>
+    <div class="m-sec"><div class="m-sec-title">Impact Overview</div>
+      <div class="m-impact-grid">
+        <div class="m-impact-item"><div class="m-impact-icon">👩</div><div class="m-impact-num">${e.livelihoods}</div><div class="m-impact-label">Livelihoods</div></div>
+        <div class="m-impact-item"><div class="m-impact-icon">💧</div><div class="m-impact-num">${fmt(e.water)}L</div><div class="m-impact-label">Water Saved</div></div>
+        <div class="m-impact-item"><div class="m-impact-icon">🌿</div><div class="m-impact-num">${fmt(e.co2)}kg</div><div class="m-impact-label">CO₂ Reduced</div></div>
+      </div>
+    </div>
+    <div class="m-sec"><div class="m-sec-title">Mission & Vision</div>
+      <div class="m-text" style="margin-bottom:8px"><strong>Mission:</strong> ${e.mission}</div>
+      <div class="m-text"><strong>Vision:</strong> ${e.vision}</div>
+    </div>
+    ${e.story?`<div class="m-sec"><div class="m-sec-title">Impact Story</div><div class="m-text">${e.story}</div></div>`:''}
+    <div class="m-sec"><div class="m-sec-title">Organisation</div>
+      <div class="m-info-grid">
+        <div class="m-info-item"><div class="m-info-label">Type</div><div class="m-info-val">${e.regType}</div></div>
+        <div class="m-info-item"><div class="m-info-label">Founded</div><div class="m-info-val">${e.founded}</div></div>
+        <div class="m-info-item"><div class="m-info-label">Reg. Number</div><div class="m-info-val" style="font-size:.7rem">${e.regNo}</div></div>
+        <div class="m-info-item"><div class="m-info-label">Team Size</div><div class="m-info-val">${e.team} people</div></div>
+        <div class="m-info-item" style="grid-column:1/-1"><div class="m-info-label">Founders</div><div class="m-info-val">${e.founders}</div></div>
+        <div class="m-info-item" style="grid-column:1/-1"><div class="m-info-label">Location</div><div class="m-info-val">${e.address}, ${e.city}, ${e.state}</div></div>
+      </div>
+    </div>
+    ${sdgH?`<div class="m-sec"><div class="m-sec-title">SDG Alignment</div><div style="display:flex;flex-wrap:wrap;gap:5px">${sdgH}</div></div>`:''}
+    ${ep.length?`<div class="m-sec"><div class="m-sec-title">Products (${ep.length})</div>${ep.map(p=>`<div class="m-prod-item" onclick="closeEntModal();setTimeout(()=>openProdModal('${p.id}'),200)"><span style="font-size:1.5rem">${p.emoji}</span><div style="flex:1"><div style="font-size:.84rem;font-weight:600">${p.name}</div><div style="font-size:.72rem;color:var(--text3)">${CONFIG.currency}${p.pMin}${p.pMax!==p.pMin?`–${CONFIG.currency}${p.pMax}`:''}</div></div><a href="${p.link}" target="_blank" class="btn-buy" style="font-size:.7rem;padding:5px 10px" onclick="event.stopPropagation()">Buy ↗</a></div>`).join('')}</div>`:''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border)">
+      <a href="${e.website}" target="_blank" class="btn btn-primary" style="flex:1">Visit Website ↗</a>
+      <button class="btn btn-outline" onclick="shareEnt('${e.id}')" style="flex:1">Share 📤</button>
+    </div>`;
+  document.getElementById('ent-overlay').classList.add('open');
+  document.getElementById('ent-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEntModal(){document.getElementById('ent-overlay').classList.remove('open');document.getElementById('ent-modal').classList.remove('open');document.body.style.overflow='';}
+
+/* ─── MARKETPLACE FILTER ─────────────────────── */
+function getFiltered(){
+  let r=[...prods];
+  const q=(document.getElementById('search-input')||{}).value?.toLowerCase()||'';
+  const cat=(document.getElementById('f-cat')||{}).value||'';
+  const state=(document.getElementById('f-state')||{}).value||'';
+  const impact=(document.getElementById('f-impact')||{}).value||'';
+  if(q)r=r.filter(p=>{const e=ents.find(x=>x.id===p.eid)||{};return p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||(e.name||'').toLowerCase().includes(q)||p.cat.toLowerCase().includes(q);});
+  if(cat)r=r.filter(p=>p.cat===cat);
+  if(state)r=r.filter(p=>(ents.find(x=>x.id===p.eid)||{}).state===state);
+  if(impact){const k={water:'water',live:'live',carbon:'carbon',c1:'c1'}[impact];if(k)r=r.filter(p=>p.sroi&&p.sroi[k]);}
+  if(sortBy==='impact')r.sort((a,b)=>b.score-a.score);
+  else if(sortBy==='price-asc')r.sort((a,b)=>a.pMin-b.pMin);
+  else if(sortBy==='price-desc')r.sort((a,b)=>b.pMin-a.pMin);
+  else if(sortBy==='name')r.sort((a,b)=>a.name.localeCompare(b.name));
+  return r;
+}
+function filterProds(){
+  const f=getFiltered(),grid=document.getElementById('prods-grid'),cnt=document.getElementById('prods-count'),lm=document.getElementById('load-more-wrap');
+  if(!grid)return;
+  const sl=f.slice(0,shown);
+  grid.innerHTML=sl.length?sl.map(prodCard).join(''):`<div class="no-results"><div style="font-size:2.5rem;margin-bottom:11px">🔍</div><div style="font-weight:700">No products found</div><div style="font-size:.84rem;margin-top:5px">Try adjusting your filters</div></div>`;
+  if(cnt)cnt.textContent=`${sl.length} of ${f.length} products`;
+  if(lm)lm.style.display=f.length>shown?'block':'none';
+}
+function clearSearch(){const i=document.getElementById('search-input');if(i){i.value='';filterProds();}}
+function clearFilters(){['f-cat','f-state','f-impact'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});clearSearch();}
+function sortProds(v){sortBy=v;filterProds();}
+function loadMore(){shown+=6;filterProds();}
+
+/* ─── HOME RENDERS ───────────────────────────── */
+function renderHome(){
+  const fp=document.getElementById('home-featured-prods');
+  if(fp)fp.innerHTML=prods.filter(p=>p.feat).slice(0,3).map(prodCard).join('');
+  const fe=document.getElementById('home-ents');
+  if(fe)fe.innerHTML=ents.filter(e=>e.featured).slice(0,3).map(entCard).join('');
+  renderLB();renderSDGs();
+}
+function renderLB(){
+  const lb=document.getElementById('leaderboard');if(!lb)return;
+  const s=[...ents].sort((a,b)=>b.score-a.score).slice(0,5);
+  const me=['🥇','🥈','🥉','4','5'];
+  lb.innerHTML=s.map((e,i)=>`<div class="lb-item" onclick="openEntModal('${e.id}')">
+    <div class="lb-rank">${me[i]}</div>
+    <div class="lb-logo-sm" style="background:${e.logoC}">${e.logo}</div>
+    <div class="lb-info"><div class="lb-name">${e.name}</div><div class="lb-sub">${e.city}, ${e.state} · ${e.livelihoods} livelihoods</div></div>
+    <div><div class="lb-score-num">${e.score}</div><div class="lb-score-label">Impact Score</div></div>
+  </div>`).join('');
+}
+function renderSDGs(){
+  const el=document.getElementById('sdg-grid');if(!el)return;
+  const all=new Set();ents.forEach(e=>(e.sdgs||[]).forEach(n=>all.add(n)));
+  el.innerHTML=[...all].sort((a,b)=>a-b).map(n=>{
+    const m=SDG[n]||{n:`SDG ${n}`,e:'🌍',c:'#333'};
+    const light=[7,11,15].includes(n);
+    return`<div class="sdg-pill" style="background:${m.c};${light?'color:#000':''}">${m.e} SDG ${n}: ${m.n}</div>`;
+  }).join('');
+}
+
+/* ─── BULK CALCULATOR ────────────────────────── */
+function calcImpact(){
+  const qty=Math.max(1,parseInt(document.getElementById('calc-qty')?.value)||100);
+  const cat=document.getElementById('calc-cat')?.value||'All Products';
+  const m=BI[cat]||BI['All Products'];
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  s('calc-live',Math.max(1,Math.ceil(qty*m.live)));
+  s('calc-water',fmt(Math.round(qty*m.water)));
+  s('calc-co2',Math.round(qty*m.co2));
+  s('calc-artisan',Math.round(qty*m.art));
+  s('calc-sroi',m.sroi.toFixed(1));
+}
+
+/* ─── BULK FORM ──────────────────────────────── */
+function fv(id){const el=document.getElementById(id);return el?(el.tagName==='SELECT'?el.options[el.selectedIndex]?.text||'':el.value.trim()):''}
+async function submitBulk(){
+  const name=fv('b-name'),org=fv('b-org'),email=fv('b-email');
+  if(!name||!org||!email){toast('⚠️','Please fill Name, Organisation and Email.');return;}
+  const data={name,organisation:org,email,phone:fv('b-phone'),product:fv('b-product'),quantity:fv('b-qty'),budget:fv('b-budget'),message:fv('b-msg'),timestamp:new Date().toISOString()};
+  if(CONFIG.appsScriptUrl){try{await fetch(CONFIG.appsScriptUrl,{method:'POST',mode:'no-cors',body:JSON.stringify(data)});}catch(e){console.warn(e);}}
+  const sub=encodeURIComponent(`Bulk Inquiry from ${org}`);
+  const body=encodeURIComponent(`Name: ${name}\nOrganisation: ${org}\nEmail: ${email}\nPhone: ${data.phone}\n\nProduct: ${data.product}\nQuantity: ${data.quantity}\nBudget: ${data.budget}\n\nMessage:\n${data.message}`);
+  window.open(`mailto:${CONFIG.email}?subject=${sub}&body=${body}`,'_blank');
+  toast('✅','Inquiry sent! We\'ll respond within 24 hours.');
+  ['b-name','b-org','b-email','b-phone','b-qty','b-msg'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+}
+
+/* ─── NAVIGATION ─────────────────────────────── */
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nl-'+page)?.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(page==='marketplace'){shown=6;filterProds();}
+  if(page==='bulk')calcImpact();
+  setTimeout(()=>document.querySelectorAll('.anim-in').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('visible');}),100);
+}
+function toggleMob(){mobOpen=!mobOpen;document.getElementById('mob-menu').classList.toggle('open',mobOpen);}
+
+/* ─── UTILS ──────────────────────────────────── */
+function toast(icon,txt){
+  document.getElementById('toast-icon').textContent=icon;
+  document.getElementById('toast-text').textContent=txt;
+  const t=document.getElementById('toast');t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4500);
+}
+function shareEnt(id){const e=ents.find(x=>x.id===id);const txt=`Check out ${e?.name} on Liveligood — creating verified social impact! #Liveligood`;if(navigator.share){navigator.share({title:e?.name,text:txt,url:location.href});}else{navigator.clipboard?.writeText(txt).then(()=>toast('📋','Copied!'));}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeProdModal();closeEntModal();if(mobOpen)toggleMob();}});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
+
+function setupObserver(){const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});document.querySelectorAll('.anim-in').forEach(el=>obs.observe(el));}
+
+/* ─── INIT ───────────────────────────────────── */
+async function init(){await loadData();renderHome();filterProds();calcImpact();setupObserver();}
+init();
+</script>
+</body>
+</html>
