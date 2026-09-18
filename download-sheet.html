@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Liveligood — Download Sample Sheet</title>
+<style>
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#070b14;color:#f1f5f9;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:24px;box-sizing:border-box}
+  .card{background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:40px 44px;max-width:520px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .icon{font-size:3.5rem;margin-bottom:18px}
+  h1{font-size:1.6rem;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+  h1 span{background:linear-gradient(135deg,#00d4aa,#38bdf8,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  p{color:#94a3b8;font-size:.9rem;line-height:1.6;margin-bottom:28px}
+  .sheets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+  .sheet-tag{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.25);color:#00d4aa;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:100px;letter-spacing:.05em}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#000;font-size:1rem;font-weight:800;padding:14px 32px;border-radius:14px;border:none;cursor:pointer;transition:all .2s ease;letter-spacing:.01em;font-family:inherit}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,212,170,.35)}
+  .btn:active{transform:translateY(0)}
+  .note{margin-top:20px;font-size:.75rem;color:#475569;line-height:1.6}
+  .progress{display:none;margin-top:18px;font-size:.85rem;color:#00d4aa}
+  .check{color:#00d4aa;font-size:1.1rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">📊</div>
+  <h1>Liveligood <span>Sample Sheet</span></h1>
+  <p>Click below to download a ready-to-use Excel file with 5 sheets — pre-filled with sample data for 4 enterprises and 8 products. Upload it to Google Drive and convert to Google Sheets instantly.</p>
+  <div class="sheets">
+    <span class="sheet-tag">🏢 enterprises</span>
+    <span class="sheet-tag">📦 products</span>
+    <span class="sheet-tag">📬 bulk_inquiries</span>
+    <span class="sheet-tag">📊 impact_counters</span>
+    <span class="sheet-tag">📋 Setup Guide</span>
+  </div>
+  <button class="btn" onclick="generate()" id="dl-btn">
+    <span>⬇</span> Download Liveligood_SampleData.xlsx
+  </button>
+  <div class="progress" id="progress">⏳ Generating your file...</div>
+  <div class="note">
+    After downloading:<br/>
+    1. Go to <strong>drive.google.com</strong> → Upload this file<br/>
+    2. Right-click → <strong>Open with Google Sheets</strong><br/>
+    3. File → Share → Publish to web → CSV → copy URL<br/>
+    4. Paste URL into <code>index.html</code> CONFIG block
+  </div>
+</div>
+
+<!-- SheetJS via CDN -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script>
+function generate() {
+  const btn = document.getElementById('dl-btn');
+  const prog = document.getElementById('progress');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Generating...';
+  prog.style.display = 'block';
+
+  setTimeout(() => {
+    try {
+      const wb = XLSX.utils.book_new();
+
+      /* ──────────────────────────────────────────────
+         SHEET 1 : enterprises
+      ────────────────────────────────────────────── */
+      const entHeaders = [
+        'enterprise_id','name','tagline','logo_emoji','logo_color',
+        'founders','mission','vision','impact_story',
+        'registration_type','registration_number',
+        'address','city','state','website',
+        'sdg_goals','total_livelihoods','total_water_saved_litres',
+        'total_co2_reduced_kg','year_founded','team_size','impact_score','featured',
+        'enterprise_photo_url','fair_wage_policy','environmental_policy','certifications'
+      ];
+
+      const entData = [
+        entHeaders,
+        [
+          'ENT001','Haarika Naturals','Tribal wisdom meets modern wellness',
+          '🌿','linear-gradient(135deg,#4ade80,#16a34a)',
+          'Sunita Devi, Meera Patel',
+          'To empower tribal women artisans in the Eastern Ghats by providing fair-wage livelihoods through natural, chemical-free personal care products rooted in indigenous herbal knowledge.',
+          'A world where ancient herbal wisdom creates modern prosperity for forest-dwelling communities, preserving biodiversity and uplifting the most marginalised.',
+          'Haarika Naturals works with 127 tribal women across 12 villages in the Eastern Ghats foothills of Visakhapatnam. Women collect wild herbs sustainably and produce premium natural products.',
+          'Section 8 Company','U85300TG2019NPL131456',
+          'Village Paderu, Visakhapatnam District','Visakhapatnam','Andhra Pradesh',
+          'https://haarika-naturals.in',
+          '1,5,8,12,15',127,85000,2400,2019,34,88,'TRUE',
+          '',  // enterprise_photo_url — paste a Google Drive share link here
+          'Every artisan is paid above the applicable state minimum wage, settled within 7 days of order fulfilment.',
+          'Wild herbs are harvested on sustainable quotas; all packaging is plastic-free and biodegradable.',
+          'Section 8 Registered, India Organic Certified'
+        ],
+        [
+          'ENT002','WaterWise Collective','Clean water is a right, not a privilege',
+          '💧','linear-gradient(135deg,#38bdf8,#0284c7)',
+          'Dr. Rajesh Kumar, Ananya Singh',
+          'To make safe drinking water accessible to rural and peri-urban communities through affordable, locally-manufacturable bamboo-based water purification technology.',
+          'No child should miss school due to water-borne illness. No woman should walk 5km for clean water.',
+          "WaterWise Collective was born from Dr. Rajesh Kumar's 15 years of research in sustainable water technology. Their bamboo biofilter purifies 500 litres per day.",
+          'Producer Company','CIN: U27209RJ2017PTC058214',
+          '14, Adarsh Nagar, Jaipur','Jaipur','Rajasthan',
+          'https://waterwise.in',
+          '3,6,10,12',89,2400000,1200,2017,28,95,'TRUE',
+          '',  // enterprise_photo_url
+          'Rural technicians are salaried employees with EPF contributions and paid annual leave.',
+          'Bamboo sourced from certified regenerative plantations; zero plastic in the filtration unit.',
+          'Producer Company Registered, BIS Water Quality Tested'
+        ],
+        [
+          'ENT003','ReWeave','Waste is just a resource in the wrong place',
+          '🧵','linear-gradient(135deg,#c084fc,#7c3aed)',
+          'Priya Nair, Karthik Subramaniam',
+          "To repurpose India's 7.5 million tonnes of annual textile waste into premium lifestyle products while creating dignified employment for women from low-income households.",
+          'A circular textile economy where no fabric ends up in landfill and every artisan earns a living wage.',
+          'ReWeave began as a weekend upcycling project in a Chennai garage. Today it employs 56 women artisans and processes 2+ tonnes of textile waste monthly.',
+          'Social Enterprise (Pvt Ltd)','CIN: U52100TN2021PTC145678',
+          '22, Tondiarpet Industrial Estate, Chennai','Chennai','Tamil Nadu',
+          'https://reweave.in',
+          '8,10,12,13',56,18000,8700,2021,21,84,'TRUE',
+          '',  // enterprise_photo_url
+          'Artisans are paid per-piece rates benchmarked 20% above local market wages, reviewed every 6 months.',
+          '100% post-consumer textile waste diverted from landfill; natural dyes only.',
+          'GST Registered, GOTS Recycled Claim (in progress)'
+        ],
+        [
+          'ENT004','SunSeed Foods','Reviving millets. Reviving farmers.',
+          '🌾','linear-gradient(135deg,#fbbf24,#d97706)',
+          'Bharati Devi, Suresh Patel',
+          'To revive indigenous grain cultivation among small and marginal farmers in Madhya Pradesh by providing market linkage, fair prices, and agri-support.',
+          "India's food security built on indigenous grains, supported by 10 million small farmers earning dignified incomes.",
+          'SunSeed Foods works with 312 small and marginal farmers across 28 villages in Bundelkhand. Shifting farmers to millets has reduced groundwater extraction by 156,000 litres annually.',
+          'FPO (Farmer Producer Organisation)','FPO/MP/2018/00487',
+          'Tikamgarh, Bundelkhand','Tikamgarh','Madhya Pradesh',
+          'https://sunseedfoods.in',
+          '1,2,3,8,12,15',312,156000,3600,2018,68,91,'FALSE',
+          '',  // enterprise_photo_url
+          'Farmers receive a guaranteed minimum support price above market rate, paid within 48 hours of procurement.',
+          'Promotes millet cultivation to cut groundwater use versus wheat/paddy; zero synthetic pesticide use.',
+          'FPO Registered, NPOP Organic (in transition)'
+        ],
+        // Blank template rows — add enterprise_photo_url, fair_wage_policy, environmental_policy, certifications in the last 4 columns
+        ['ENT005','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+        ['ENT006','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+      ];
+
+      const ws1 = XLSX.utils.aoa_to_sheet(entData);
+      ws1['!cols'] = entHeaders.map((h,i) => ({
+        wch: [12,22,32,8,36,28,60,60,60,24,28,32,16,16,36,14,14,14,14,10,10,12,8,40,50,50,36][i] || 16
+      }));
+      XLSX.utils.book_append_sheet(wb, ws1, 'enterprises');
+
+      /* ──────────────────────────────────────────────
+         SHEET 2 : products
+      ────────────────────────────────────────────── */
+      const prodHeaders = [
+        'product_id','enterprise_id','name','description','category','emoji','bg_color',
+        'price_min','price_max','buy_link',
+        'sroi_water','sroi_livelihood','sroi_carbon','sroi_custom1','sroi_custom2',
+        'sdg_goals','impact_score','bulk_available','featured',
+        'product_image_url'
+      ];
+
+      const prodData = [
+        prodHeaders,
+        ['PRD001','ENT001','Tribal Turmeric & Neem Soap','Cold-pressed using wild turmeric and hand-harvested neem leaves by tribal women artisans. No SLS, parabens, or synthetic fragrance.','Personal Care','🧼','linear-gradient(135deg,#fef3c7,#fcd34d)',180,220,'https://haarika-naturals.in/soap','8L water saved','2.4 artisan hours','','18g chemicals avoided','₹24 to tribal family','5,8,15',78,'TRUE','TRUE',''],
+        ['PRD002','ENT002','Bamboo Biofilter — Home Kit','Gravity-fed water purifier made from sustainably harvested bamboo. Purifies 500L/day. No electricity needed.','Home & Living','💧','linear-gradient(135deg,#e0f2fe,#38bdf8)',850,1200,'https://waterwise.in/home-kit','500L/day purified','1 rural technician','','365L plastic avoided/yr','1 family safe water','3,6,12',95,'TRUE','TRUE',''],
+        ['PRD003','ENT003','Hand-Loomed Upcycled Tote','Woven from salvaged cotton and denim scraps. Unique and traceable to the artisan who made it.','Lifestyle','👜','linear-gradient(135deg,#f3e8ff,#c084fc)',350,450,'https://reweave.in/tote','18L water saved','3.5 artisan hours','1.2kg CO₂ saved','200g textile waste saved','','8,12,13',85,'TRUE','TRUE',''],
+        ['PRD004','ENT001','Wild Forest Honey — 500g','Raw, unprocessed honey from bee colonies tended by tribal honey collectors in the Eastern Ghats.','Food & Nutrition','🍯','linear-gradient(135deg,#fef9c3,#fbbf24)',320,480,'https://haarika-naturals.in/honey','','1 tribal honey collector','','200+ flowers pollinated','₹80 forest income','1,2,15',88,'FALSE','FALSE',''],
+        ['PRD005','ENT004','Heritage Millet Mix — 1kg','A blend of ragi, bajra, and jowar sourced from 8 small farmers in Bundelkhand. High-protein, drought-resilient.','Food & Nutrition','🌾','linear-gradient(135deg,#fef3c7,#d97706)',240,280,'https://sunseedfoods.in/millet-mix','60% less water than wheat','8 farmers supported','0.8kg CO₂ lower','3 nutritious meals','','2,3,8,15',81,'TRUE','FALSE',''],
+        ['PRD006','ENT003','Upcycled Denim Pouch','Compact pouch crafted from salvaged denim scraps. Double-stitched. Natural rope drawstring. Zero virgin materials.','Lifestyle','👝','linear-gradient(135deg,#dbeafe,#3b82f6)',290,350,'https://reweave.in/denim-pouch','','1.8 artisan hours','0.6kg CO₂ saved','300g denim waste saved','Zero new resources used','8,12,13',76,'TRUE','FALSE',''],
+        ['PRD007','ENT002','Rainwater Harvesting Kit','DIY rainwater collection kit with illustrated manual. Helps households collect 800L per monsoon season.','Home & Living','🌧️','linear-gradient(135deg,#e0f2fe,#0ea5e9)',450,600,'https://waterwise.in/rain-kit','800L harvested/season','1 rural installer','','₹1,200 water bill saved','Groundwater recharged','6,11,15',87,'TRUE','FALSE',''],
+        ['PRD008','ENT004','Organic Red Rice — 2kg','Heritage red rice from the Narmada valley. Pesticide-free, sun-dried. 3× more iron than white rice.','Food & Nutrition','🍚','linear-gradient(135deg,#fee2e2,#ef4444)',180,220,'https://sunseedfoods.in/red-rice','40% less water than hybrid','4 marginal farmers','0.5kg CO₂ lower','Biodiversity preserved','','1,2,3,15',79,'FALSE','FALSE',''],
+        // Blank template rows — paste Google Drive share link in product_image_url (last column)
+        ['PRD009','ENT00X','','','','','','','','','','','','','','','','FALSE','FALSE',''],
+        ['PRD010','ENT00X','','','','','','','','','','','','','','','','FALSE','FALSE',''],
+      ];
+
+      const ws2 = XLSX.utils.aoa_to_sheet(prodData);
+      ws2['!cols'] = prodHeaders.map((h,i) => ({
+        wch: [10,12,28,50,16,6,36,10,10,36,20,20,16,22,22,12,12,14,10,40][i] || 14
+      }));
+      XLSX.utils.book_append_sheet(wb, ws2, 'products');
+
+      /* ──────────────────────────────────────────────
+         SHEET 3 : bulk_inquiries
+      ────────────────────────────────────────────── */
+      const inqHeaders = [
+        'timestamp','name','organisation','email','phone',
+        'product_interest','quantity','budget_range','message','status',
+        'assigned_to','follow_up_date'
+      ];
+
+      const inqData = [
+        inqHeaders,
+        ['2024-09-10T10:32:00Z','Aisha Kapoor','Infosys Foundation','aisha@infosys.com','+91 98001 23456',
+         'Personal Care Products','500','₹5L – ₹25L',
+         'Need for Diwali corporate gifting — 500 soap sets with custom packaging.','New','',''],
+        ['2024-09-12T14:15:00Z','Rajan Mehta','TATA CSR Division','rajan@tata.com','+91 98765 00001',
+         'Food & Nutrition Products','1000','₹25L+',
+         'Annual employee wellness kit. Looking for millet-based products for 1000 employees.','In Progress','Meera','2024-09-20'],
+        ['2024-09-13T09:00:00Z','Sunita Rao','Government of Karnataka','sunita.rao@karnataka.gov.in','+91 80000 99999',
+         'Home & Living Products','250','₹1L – ₹5L',
+         'Procurement for rural community water kits. Government tender requirement.','New','',''],
+        // Note row
+        ['','','','','','','','','ℹ️ This sheet is auto-filled by the Google Apps Script when a bulk form is submitted on the website.','','',''],
+      ];
+
+      const ws3 = XLSX.utils.aoa_to_sheet(inqData);
+      ws3['!cols'] = inqHeaders.map((h,i) => ({
+        wch: [22,16,22,28,16,22,10,14,50,14,14,14][i] || 14
+      }));
+      XLSX.utils.book_append_sheet(wb, ws3, 'bulk_inquiries');
+
+      /* ──────────────────────────────────────────────
+         SHEET 4 : impact_counters
+      ────────────────────────────────────────────── */
+      const ctrHeaders = ['metric','value','suffix','icon','color_hex','notes'];
+      const ctrData = [
+        ctrHeaders,
+        ['Social Enterprises',147,'+','🏢','#00D4AA','Total verified enterprises on the platform'],
+        ['Livelihoods Created',12847,'','👩','#F59E0B','Cumulative across all enterprises'],
+        ['Water Saved (Litres)',2840,'万 L','💧','#3B82F6','2840 = 2.84 Crore litres. Shown as "2840万 L" on site'],
+        ['CO₂ Reduced (Tonnes)',342,' T','🌿','#34D399','Cumulative CO₂ reduction in metric tonnes'],
+      ];
+
+      const ws4 = XLSX.utils.aoa_to_sheet(ctrData);
+      ws4['!cols'] = [{ wch:26},{wch:12},{wch:10},{wch:6},{wch:12},{wch:48}];
+      XLSX.utils.book_append_sheet(wb, ws4, 'impact_counters');
+
+      /* ──────────────────────────────────────────────
+         SHEET 5 : Setup Guide
+      ────────────────────────────────────────────── */
+      const guideData = [
+        ['🌱  LIVELIGOOD — Google Sheets Setup Guide',''],
+        ['This workbook is the backend data source for your Liveligood social impact marketplace website.',''],
+        ['',''],
+        ['📄  SHEET OVERVIEW',''],
+        ['enterprises',    'Master list of all social enterprises. Add one row per enterprise. Fill fair_wage_policy, environmental_policy and certifications to show trust badges on the site.'],
+        ['products',       'All products. Link to an enterprise using the enterprise_id column.'],
+        ['bulk_inquiries', 'Auto-filled by the Google Apps Script when a bulk form is submitted.'],
+        ['impact_counters','4 numbers shown on the homepage hero counter section. Update monthly.'],
+        ['',''],
+        ['🚀  STEP 1 — UPLOAD TO GOOGLE DRIVE',''],
+        ['1.', 'Go to drive.google.com → click "+ New" → "File upload"'],
+        ['2.', 'Select this file (Liveligood_SampleData.xlsx)'],
+        ['3.', 'Right-click the uploaded file → "Open with Google Sheets"'],
+        ['4.', 'Google Sheets will convert it. You now have a live Google Sheet.'],
+        ['',''],
+        ['🌐  STEP 2 — PUBLISH AS CSV FOR THE WEBSITE',''],
+        ['1.', 'In Google Sheets → File → Share → Publish to web'],
+        ['2.', "Select 'enterprises' tab → Format: 'Comma-separated values (.csv)' → Publish"],
+        ['3.', "Repeat for the 'products' tab"],
+        ['4.', 'Copy both URLs. They look like:'],
+        ['  URL example:', 'https://docs.google.com/spreadsheets/d/YOUR_ID/export?format=csv&sheet=enterprises'],
+        ['',''],
+        ['💻  STEP 3 — PASTE URLS INTO index.html',''],
+        ['1.', 'Open liveligood/index.html in any text editor (Notepad, VS Code, etc.)'],
+        ['2.', 'Find the CONFIG section near line 550 (search for "CONFIG")'],
+        ['3.', 'Paste your two CSV URLs into the "sheets" object'],
+        ['4.', 'Save the file. The website now reads LIVE from your Google Sheet!'],
+        ['',''],
+        ['📊  PRODUCT CATEGORIES (use exactly as written)',''],
+        ['  •','Food & Nutrition'],
+        ['  •','Personal Care'],
+        ['  •','Home & Living'],
+        ['  •','Lifestyle'],
+        ['  •','Handicrafts'],
+        ['  •','Apparel'],
+        ['',''],
+        ['🌍  SDG GOAL NUMBERS (enter as comma-separated, e.g. 1,5,8,13)',''],
+        ['  1','No Poverty'],
+        ['  2','Zero Hunger'],
+        ['  3','Good Health and Well-Being'],
+        ['  5','Gender Equality'],
+        ['  6','Clean Water and Sanitation'],
+        ['  8','Decent Work and Economic Growth'],
+        ['  10','Reduced Inequalities'],
+        ['  12','Responsible Consumption and Production'],
+        ['  13','Climate Action'],
+        ['  15','Life on Land'],
+        ['',''],
+        ['✅  IMPORTANT NOTES',''],
+        ['CORS note:', 'Open index.html via a web server (not file://) for Google Sheets live loading to work.'],
+        ['Free hosting:', 'GitHub Pages, Netlify, or VS Code Live Server extension all work perfectly.'],
+        ['Updates:', 'Just edit the Google Sheet and refresh the website — changes appear immediately.'],
+        ['Bulk form:', 'Deploy apps-script.js as a Google Apps Script Web App to handle form submissions.'],
+      ];
+
+      const ws5 = XLSX.utils.aoa_to_sheet(guideData);
+      ws5['!cols'] = [{wch:22},{wch:72}];
+      XLSX.utils.book_append_sheet(wb, ws5, '📋 Setup Guide');
+
+      /* ──────────────────────────────────────────────
+         DOWNLOAD
+      ────────────────────────────────────────────── */
+      XLSX.writeFile(wb, 'Liveligood_SampleData.xlsx');
+
+      btn.innerHTML = '✅ Downloaded!';
+      btn.style.background = 'linear-gradient(135deg,#065f46,#047857)';
+      prog.innerHTML = '✅ File saved! Check your Downloads folder.';
+      prog.style.color = '#34d399';
+
+    } catch(err) {
+      btn.innerHTML = '❌ Error — try again';
+      btn.disabled = false;
+      prog.innerHTML = '❌ ' + err.message;
+      prog.style.color = '#f87171';
+      console.error(err);
+    }
+  }, 100);
+}
+</script>
+</body>
+</html>
